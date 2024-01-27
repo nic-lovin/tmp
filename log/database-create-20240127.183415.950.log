@@ -1,0 +1,1365 @@
+[2024-01-27 18:34:15] This is codeql database create yolo --language=java --command=mvn clean install --file pom.xml
+[2024-01-27 18:34:15] Log file was started late.
+[2024-01-27 18:34:15] [PROGRESS] database create> Initializing database at /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo.
+[2024-01-27 18:34:16] Running plumbing command: codeql database init --language=java --extractor-options-verbosity=1 --qlconfig-file=/home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/qlconfig.yml --source-root=/home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app --allow-missing-source-root=false --allow-already-existing -- /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo
+[2024-01-27 18:34:16] Calling plumbing command: codeql resolve languages --extractor-options-verbosity=1 --format=betterjson
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Scanning for [codeql-extractor.yml] from /home/nic-lovin/Documents/ctf/real/codeql/.codeqlmanifest.json
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/ruby/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/html/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/java/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/csharp/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/xml/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/swift/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/javascript/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/python/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/cpp/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/go/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/yaml/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/csv/codeql-extractor.yml.
+[2024-01-27 18:34:16] [DETAILS] resolve languages> Parsing /home/nic-lovin/Documents/ctf/real/codeql/properties/codeql-extractor.yml.
+[2024-01-27 18:34:16] Plumbing command codeql resolve languages completed:
+                      {
+                        "aliases" : {
+                          "c" : "cpp",
+                          "c++" : "cpp",
+                          "c-c++" : "cpp",
+                          "c-cpp" : "cpp",
+                          "c#" : "csharp",
+                          "java-kotlin" : "java",
+                          "kotlin" : "java",
+                          "javascript-typescript" : "javascript",
+                          "typescript" : "javascript"
+                        },
+                        "extractors" : {
+                          "ruby" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/ruby",
+                              "extractor_options" : {
+                                "trap" : {
+                                  "title" : "Options pertaining to TRAP.",
+                                  "description" : "Options pertaining to TRAP.",
+                                  "type" : "object",
+                                  "properties" : {
+                                    "compression" : {
+                                      "title" : "Controls compression for the TRAP files written by the extractor.",
+                                      "description" : "This option is only intended for use in debugging the extractor. Accepted values are 'gzip' (the default, to write gzip-compressed TRAP) and 'none' (to write uncompressed TRAP).\n",
+                                      "type" : "string",
+                                      "pattern" : "^(none|gzip)$"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "html" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/html"
+                            }
+                          ],
+                          "java" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/java",
+                              "extractor_options" : {
+                                "exclude" : {
+                                  "title" : "A glob excluding files from analysis.",
+                                  "description" : "A glob indicating what files to exclude from the analysis.\n",
+                                  "type" : "string"
+                                },
+                                "add_prefer_source" : {
+                                  "title" : "Whether to always prefer source files over class files.",
+                                  "description" : "A value indicating whether source files should be preferred over class files. If set to 'true', the extraction adds '-Xprefer:source' to the javac command line. If set to 'false', the extraction uses the default javac behavior ('-Xprefer:newer'). The default is 'true'.\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                },
+                                "buildless" : {
+                                  "title" : "Whether to use buildless (standalone) extraction (experimental).",
+                                  "description" : "A value indicating, which type of extraction the autobuilder should perform. If 'true', then the standalone extractor will be used, otherwise tracing extraction will be performed. The default is 'false'. Note that buildless extraction will generally yield less accurate analysis results, and should only be used in cases where it is not possible to build the code (for example if it uses inaccessible dependencies).\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                }
+                              }
+                            }
+                          ],
+                          "csharp" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/csharp",
+                              "extractor_options" : {
+                                "trap" : {
+                                  "title" : "Options pertaining to TRAP.",
+                                  "description" : "Options pertaining to TRAP.",
+                                  "type" : "object",
+                                  "properties" : {
+                                    "compression" : {
+                                      "title" : "Controls compression for the TRAP files written by the extractor.",
+                                      "description" : "This option is only intended for use in debugging the extractor. Accepted values are 'brotli' (the default, to write brotli-compressed TRAP), 'gzip', and 'none' (to write uncompressed TRAP).\n",
+                                      "type" : "string",
+                                      "pattern" : "^(none|gzip|brotli)$"
+                                    }
+                                  }
+                                },
+                                "buildless" : {
+                                  "title" : "Whether to use buildless (standalone) extraction.",
+                                  "description" : "A value indicating, which type of extraction the autobuilder should perform. If 'true', then the standalone extractor will be used, otherwise tracing extraction will be performed. The default is 'false'. Note that buildless extraction will generally yield less accurate analysis results, and should only be used in cases where it is not possible to build the code (for example if it uses inaccessible dependencies).\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                },
+                                "cil" : {
+                                  "title" : "Whether to enable CIL extraction.",
+                                  "description" : "A value indicating, whether CIL extraction should be enabled. The default is 'true'.\n",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                }
+                              }
+                            }
+                          ],
+                          "xml" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/xml"
+                            }
+                          ],
+                          "swift" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/swift"
+                            }
+                          ],
+                          "javascript" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/javascript",
+                              "extractor_options" : {
+                                "skip_types" : {
+                                  "title" : "Skip type extraction for TypeScript",
+                                  "description" : "Whether to skip the extraction of types in a TypeScript application",
+                                  "type" : "string",
+                                  "pattern" : "^(false|true)$"
+                                }
+                              }
+                            }
+                          ],
+                          "python" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/python",
+                              "extractor_options" : {
+                                "logging" : {
+                                  "title" : "Options pertaining to logging.",
+                                  "description" : "Options pertaining to logging.",
+                                  "type" : "object",
+                                  "properties" : {
+                                    "verbosity" : {
+                                      "title" : "Python extractor logging verbosity level.",
+                                      "description" : "Controls the level of verbosity of the CodeQL Python extractor.\nThe supported levels are (in order of increasing verbosity):\n\n  - off\n  - errors\n  - warnings\n  - info or progress\n  - debug or progress+\n  - trace or progress++\n  - progress+++\n",
+                                      "type" : "string",
+                                      "pattern" : "^(off|errors|warnings|(info|progress)|(debug|progress\\+)|(trace|progress\\+\\+)|progress\\+\\+\\+)$"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "cpp" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/cpp",
+                              "extractor_options" : { }
+                            }
+                          ],
+                          "go" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/go"
+                            }
+                          ],
+                          "yaml" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/yaml"
+                            }
+                          ],
+                          "csv" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/csv"
+                            }
+                          ],
+                          "properties" : [
+                            {
+                              "extractor_root" : "/home/nic-lovin/Documents/ctf/real/codeql/properties"
+                            }
+                          ]
+                        }
+                      }
+[2024-01-27 18:34:16] [PROGRESS] database init> Calculating baseline information in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app
+[2024-01-27 18:34:16] [SPAMMY] database init> Ignoring the following directories when processing baseline information: .git, .hg, .svn.
+[2024-01-27 18:34:16] [DETAILS] database init> Running command in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app: /home/nic-lovin/Documents/ctf/real/codeql/tools/linux64/scc --by-file --exclude-dir .git,.hg,.svn --format json --no-large --no-min .
+[2024-01-27 18:34:16] [SPAMMY] database init> Found 2 baseline files for java.
+[2024-01-27 18:34:16] [PROGRESS] database init> Calculated baseline information for languages: java (35ms).
+[2024-01-27 18:34:16] [PROGRESS] database init> Resolving extractor java.
+[2024-01-27 18:34:16] [DETAILS] database init> Found candidate extractor root for java: /home/nic-lovin/Documents/ctf/real/codeql/java.
+[2024-01-27 18:34:16] [PROGRESS] database init> Successfully loaded extractor Java/Kotlin (java) from /home/nic-lovin/Documents/ctf/real/codeql/java.
+[2024-01-27 18:34:16] [PROGRESS] database init> Created skeleton CodeQL database at /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo. This in-progress database is ready to be populated by an extractor.
+[2024-01-27 18:34:16] Plumbing command codeql database init completed.
+[2024-01-27 18:34:16] [PROGRESS] database create> Running build command: [mvn, clean, install, --file, pom.xml]
+[2024-01-27 18:34:16] Running plumbing command: codeql database trace-command --working-dir=/home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app --index-traceless-dbs --no-db-cluster -- /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo mvn clean install --file pom.xml
+[2024-01-27 18:34:16] [PROGRESS] database trace-command> Running command in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app: [mvn, clean, install, --file, pom.xml]
+[2024-01-27 18:34:17] [build-stdout] [[1;34mINFO[m] Scanning for projects...
+[2024-01-27 18:34:17] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:17] [build-stdout] [[1;34mINFO[m] [1m----------------------< [0;36mcom.mycompany.app:my-app[0;1m >----------------------[m
+[2024-01-27 18:34:17] [build-stdout] [[1;34mINFO[m] [1mBuilding my-app 1.0-SNAPSHOT[m
+[2024-01-27 18:34:17] [build-stdout] [[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[2024-01-27 18:34:17] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.4.1/maven-enforcer-plugin-3.4.1.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.4.1/maven-enforcer-plugin-3.4.1.pom (7.7 kB at 1.4 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer/3.4.1/enforcer-3.4.1.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer/3.4.1/enforcer-3.4.1.pom (9.1 kB at 168 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/40/maven-parent-40.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/40/maven-parent-40.pom (49 kB at 753 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/30/apache-30.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/30/apache-30.pom (23 kB at 474 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.10.0/junit-bom-5.10.0.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.10.0/junit-bom-5.10.0.pom (5.6 kB at 134 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.4.1/maven-enforcer-plugin-3.4.1.jar
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-enforcer-plugin/3.4.1/maven-enforcer-plugin-3.4.1.jar (39 kB at 868 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.12.1/maven-compiler-plugin-3.12.1.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.12.1/maven-compiler-plugin-3.12.1.pom (9.7 kB at 269 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/41/maven-plugins-41.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/41/maven-plugins-41.pom (7.4 kB at 194 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/41/maven-parent-41.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/41/maven-parent-41.pom (50 kB at 1.0 MB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/31/apache-31.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/31/apache-31.pom (24 kB at 420 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.12.1/maven-compiler-plugin-3.12.1.jar
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-compiler-plugin/3.12.1/maven-compiler-plugin-3.12.1.jar (76 kB at 1.5 MB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.12.4/maven-surefire-plugin-2.12.4.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.12.4/maven-surefire-plugin-2.12.4.pom (10 kB at 255 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire/2.12.4/surefire-2.12.4.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire/2.12.4/surefire-2.12.4.pom (14 kB at 328 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.12.4/maven-surefire-plugin-2.12.4.jar
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-surefire-plugin/2.12.4/maven-surefire-plugin-2.12.4.jar (30 kB at 692 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.3.0/maven-jar-plugin-3.3.0.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.3.0/maven-jar-plugin-3.3.0.pom (6.8 kB at 150 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/37/maven-plugins-37.pom
+[2024-01-27 18:34:23] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-plugins/37/maven-plugins-37.pom (9.9 kB at 220 kB/s)
+[2024-01-27 18:34:23] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/37/maven-parent-37.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/37/maven-parent-37.pom (46 kB at 736 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/27/apache-27.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/27/apache-27.pom (20 kB at 509 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.3.0/maven-jar-plugin-3.3.0.jar
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-jar-plugin/3.3.0/maven-jar-plugin-3.3.0.jar (27 kB at 667 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.pom (6.4 kB at 156 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-install-plugin/2.4/maven-install-plugin-2.4.jar (27 kB at 627 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.pom (3.2 kB at 80 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.10.1/junit-bom-5.10.1.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.10.1/junit-bom-5.10.1.pom (5.6 kB at 131 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.pom (2.0 kB at 58 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.10.1/junit-platform-commons-1.10.1.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.10.1/junit-platform-commons-1.10.1.pom (2.8 kB at 77 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.pom (1.5 kB at 36 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.jar
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.10.1/junit-platform-commons-1.10.1.jar
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar (14 kB at 220 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar (6.8 kB at 79 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-commons/1.10.1/junit-platform-commons-1.10.1.jar (106 kB at 837 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/jupiter/junit-jupiter-api/5.10.1/junit-jupiter-api-5.10.1.jar (211 kB at 1.6 MB/s)
+[2024-01-27 18:34:24] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:24] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:24] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:24] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-enforcer-plugin:3.4.1:enforce[m [1m(enforce-maven)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/3.4.1/enforcer-api-3.4.1.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/3.4.1/enforcer-api-3.4.1.pom (3.8 kB at 92 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/3.4.1/enforcer-rules-3.4.1.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/3.4.1/enforcer-rules-3.4.1.pom (4.3 kB at 97 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.pom (2.2 kB at 56 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether/1.0.0.v20140518/aether-1.0.0.v20140518.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether/1.0.0.v20140518/aether-1.0.0.v20140518.pom (30 kB at 754 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-api/1.0.0.v20140518/aether-api-1.0.0.v20140518.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-api/1.0.0.v20140518/aether-api-1.0.0.v20140518.pom (1.9 kB at 51 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.pom
+[2024-01-27 18:34:24] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.pom (8.8 kB at 231 kB/s)
+[2024-01-27 18:34:24] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/10/plexus-10.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/10/plexus-10.pom (25 kB at 686 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.pom (31 kB at 837 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/58/commons-parent-58.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/58/commons-parent-58.pom (83 kB at 1.8 MB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/29/apache-29.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/29/apache-29.pom (21 kB at 482 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.9.3/junit-bom-5.9.3.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.9.3/junit-bom-5.9.3.pom (5.6 kB at 141 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.16.0/commons-codec-1.16.0.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.16.0/commons-codec-1.16.0.pom (16 kB at 372 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.13.0/commons-io-2.13.0.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.13.0/commons-io-2.13.0.pom (20 kB at 313 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.pom (5.0 kB at 147 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/3.4.1/enforcer-api-3.4.1.jar
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.jar
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/3.4.1/enforcer-rules-3.4.1.jar
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-api/3.4.1/enforcer-api-3.4.1.jar (14 kB at 295 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.16.0/commons-codec-1.16.0.jar
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/eclipse/aether/aether-util/1.0.0.v20140518/aether-util-1.0.0.v20140518.jar (146 kB at 2.1 MB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.13.0/commons-io-2.13.0.jar
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar (269 kB at 3.2 MB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/enforcer/enforcer-rules/3.4.1/enforcer-rules-3.4.1.jar (145 kB at 1.6 MB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/commons-codec/commons-codec/1.16.0/commons-codec-1.16.0.jar (361 kB at 3.0 MB/s)
+[2024-01-27 18:34:25] [build-stdout] Progress (3): 287/632 kB | 484 kB | 389 kB        
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar (389 kB at 2.2 MB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.13.0/commons-io-2.13.0.jar (484 kB at 2.6 MB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.13.0/commons-lang3-3.13.0.jar (632 kB at 3.1 MB/s)
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] Rule 0: org.apache.maven.enforcer.rules.version.RequireMavenVersion passed
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] Rule 1: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:resources[m [1m(default-resources)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] skip non existing resourceDirectory /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/src/main/resources
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:25] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.12.1:compile[m [1m(default-compile)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.4.2/maven-shared-utils-3.4.2.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.4.2/maven-shared-utils-3.4.2.pom (5.9 kB at 137 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/39/maven-shared-components-39.pom
+[2024-01-27 18:34:25] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/39/maven-shared-components-39.pom (3.2 kB at 87 kB/s)
+[2024-01-27 18:34:25] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/39/maven-parent-39.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/39/maven-parent-39.pom (48 kB at 1.0 MB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.pom (2.7 kB at 74 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.7.36/slf4j-parent-1.7.36.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.7.36/slf4j-parent-1.7.36.pom (14 kB at 391 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.pom (20 kB at 493 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/52/commons-parent-52.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-parent/52/commons-parent-52.pom (79 kB at 1.8 MB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/23/apache-23.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/23/apache-23.pom (18 kB at 384 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.7.2/junit-bom-5.7.2.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/junit/junit-bom/5.7.2/junit-bom-5.7.2.pom (5.1 kB at 138 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-java/1.2.0/plexus-java-1.2.0.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-java/1.2.0/plexus-java-1.2.0.pom (4.3 kB at 84 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-languages/1.2.0/plexus-languages-1.2.0.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-languages/1.2.0/plexus-languages-1.2.0.pom (3.2 kB at 78 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/15/plexus-15.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/15/plexus-15.pom (28 kB at 751 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.6/asm-9.6.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.6/asm-9.6.pom (2.4 kB at 53 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/ow2/1.5.1/ow2-1.5.1.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/ow2/1.5.1/ow2-1.5.1.pom (11 kB at 282 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/2.0.3/qdox-2.0.3.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/2.0.3/qdox-2.0.3.pom (17 kB at 367 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.14.2/plexus-compiler-api-2.14.2.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.14.2/plexus-compiler-api-2.14.2.pom (1.4 kB at 39 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler/2.14.2/plexus-compiler-2.14.2.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler/2.14.2/plexus-compiler-2.14.2.pom (8.1 kB at 197 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/16/plexus-16.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/16/plexus-16.pom (28 kB at 542 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.0/plexus-utils-4.0.0.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.0/plexus-utils-4.0.0.pom (8.7 kB at 170 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/13/plexus-13.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/13/plexus-13.pom (27 kB at 702 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.14.2/plexus-compiler-manager-2.14.2.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.14.2/plexus-compiler-manager-2.14.2.pom (1.2 kB at 33 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-xml/3.0.0/plexus-xml-3.0.0.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-xml/3.0.0/plexus-xml-3.0.0.pom (3.7 kB at 107 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.14.2/plexus-compiler-javac-2.14.2.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.14.2/plexus-compiler-javac-2.14.2.pom (1.3 kB at 30 kB/s)
+[2024-01-27 18:34:26] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compilers/2.14.2/plexus-compilers-2.14.2.pom
+[2024-01-27 18:34:26] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compilers/2.14.2/plexus-compilers-2.14.2.pom (1.3 kB at 33 kB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.4.2/maven-shared-utils-3.4.2.jar
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-java/1.2.0/plexus-java-1.2.0.jar
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.6/asm-9.6.jar
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar (41 kB at 663 kB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/2.0.3/qdox-2.0.3.jar
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-java/1.2.0/plexus-java-1.2.0.jar (58 kB at 928 kB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-utils/3.4.2/maven-shared-utils-3.4.2.jar (151 kB at 2.4 MB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.14.2/plexus-compiler-manager-2.14.2.jar
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.14.2/plexus-compiler-api-2.14.2.jar
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar (327 kB at 4.4 MB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-xml/3.0.0/plexus-xml-3.0.0.jar
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/ow2/asm/asm/9.6/asm-9.6.jar (124 kB at 1.5 MB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.14.2/plexus-compiler-javac-2.14.2.jar
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-manager/2.14.2/plexus-compiler-manager-2.14.2.jar (4.4 kB at 41 kB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.0/plexus-utils-4.0.0.jar
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-api/2.14.2/plexus-compiler-api-2.14.2.jar (29 kB at 244 kB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-xml/3.0.0/plexus-xml-3.0.0.jar (93 kB at 732 kB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/com/thoughtworks/qdox/qdox/2.0.3/qdox-2.0.3.jar (334 kB at 2.6 MB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-compiler-javac/2.14.2/plexus-compiler-javac-2.14.2.jar (23 kB at 165 kB/s)
+[2024-01-27 18:34:27] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/4.0.0/plexus-utils-4.0.0.jar (192 kB at 1.2 MB/s)
+[2024-01-27 18:34:27] [build-stdout] [[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[2024-01-27 18:34:27] [build-stdout] [[1;34mINFO[m] Compiling 1 source file with javac [debug target 1.8] to target/classes
+[2024-01-27 18:34:29] [build-stdout] [[1;33mWARNING[m] bootstrap class path not set in conjunction with -source 8
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:2.6:testResources[m [1m(default-testResources)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] Using 'UTF-8' encoding to copy filtered resources.
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] skip non existing resourceDirectory /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/src/test/resources
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.12.1:testCompile[m [1m(default-testCompile)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] Recompiling the module because of [1mchanged dependency[m.
+[2024-01-27 18:34:29] [build-stdout] [[1;34mINFO[m] Compiling 1 source file with javac [debug target 1.8] to target/test-classes
+[2024-01-27 18:34:30] [build-stdout] [[1;33mWARNING[m] bootstrap class path not set in conjunction with -source 8
+[2024-01-27 18:34:30] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:30] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:2.12.4:test[m [1m(default-test)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.pom (3.0 kB at 69 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.pom (2.5 kB at 64 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.pom (5.5 kB at 138 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.1/maven-plugin-annotations-3.1.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.1/maven-plugin-annotations-3.1.pom (1.6 kB at 43 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-tools/3.1/maven-plugin-tools-3.1.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-tools/3.1/maven-plugin-tools-3.1.pom (16 kB at 376 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.pom (17 kB at 418 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.3/maven-common-artifact-filters-1.3.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.3/maven-common-artifact-filters-1.3.pom (3.7 kB at 109 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.3/maven-common-artifact-filters-1.3.jar
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar
+[2024-01-27 18:34:30] [build-stdout] Progress (5): 35 kB | 118 kB | 213/263 kB | 217/316 kB | 31 kB       
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar (118 kB at 1.7 MB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.8/plexus-utils-3.0.8.jar
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar (35 kB at 488 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.1/maven-plugin-annotations-3.1.jar
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-common-artifact-filters/1.3/maven-common-artifact-filters-1.3.jar (31 kB at 444 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/maven-surefire-common/2.12.4/maven-surefire-common-2.12.4.jar (263 kB at 3.0 MB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar (316 kB at 3.6 MB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugin-tools/maven-plugin-annotations/3.1/maven-plugin-annotations-3.1.jar (14 kB at 122 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.8/plexus-utils-3.0.8.jar (232 kB at 1.9 MB/s)
+[2024-01-27 18:34:30] [build-stdout] [[1;34mINFO[m] Surefire report directory: /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/target/surefire-reports
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.pom (1.7 kB at 41 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/2.12.4/surefire-providers-2.12.4.pom
+[2024-01-27 18:34:30] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-providers/2.12.4/surefire-providers-2.12.4.pom (2.3 kB at 57 kB/s)
+[2024-01-27 18:34:30] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.jar
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/surefire/surefire-junit3/2.12.4/surefire-junit3-2.12.4.jar (26 kB at 632 kB/s)
+[2024-01-27 18:34:31] [build-stdout] -------------------------------------------------------
+[2024-01-27 18:34:31] [build-stdout]  T E S T S
+[2024-01-27 18:34:31] [build-stdout] -------------------------------------------------------
+[2024-01-27 18:34:31] [build-stdout] Running com.mycompany.app.AppTest
+[2024-01-27 18:34:31] [build-stdout] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec
+[2024-01-27 18:34:31] [build-stdout] Results :
+[2024-01-27 18:34:31] [build-stdout] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+[2024-01-27 18:34:31] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:31] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-jar-plugin:3.3.0:jar[m [1m(default-jar)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.pom (4.5 kB at 100 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/36/maven-shared-components-36.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/maven-shared-components/36/maven-shared-components-36.pom (4.9 kB at 132 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/36/maven-parent-36.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-parent/36/maven-parent-36.pom (45 kB at 1.2 MB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/apache/26/apache-26.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/apache/26/apache-26.pom (21 kB at 489 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.3.0/plexus-utils-3.3.0.pom (5.2 kB at 130 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/5.1/plexus-5.1.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/5.1/plexus-5.1.pom (23 kB at 608 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.0/maven-archiver-3.6.0.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.0/maven-archiver-3.6.0.pom (3.9 kB at 80 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.4.0/plexus-io-3.4.0.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.4.0/plexus-io-3.4.0.pom (6.0 kB at 163 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.4.0/plexus-archiver-4.4.0.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.4.0/plexus-archiver-4.4.0.pom (6.3 kB at 142 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.21/commons-compress-1.21.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.21/commons-compress-1.21.pom (20 kB at 562 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/iq80/snappy/snappy/0.4/snappy-0.4.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/iq80/snappy/snappy/0.4/snappy-0.4.pom (15 kB at 383 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.9/xz-1.9.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.9/xz-1.9.pom (2.0 kB at 54 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.pom (2.7 kB at 74 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.4.2/plexus-utils-3.4.2.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.4.2/plexus-utils-3.4.2.pom (8.2 kB at 200 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/8/plexus-8.pom
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/8/plexus-8.pom (25 kB at 707 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.jar
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.4.0/plexus-io-3.4.0.jar
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.0/maven-archiver-3.6.0.jar
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.4.0/plexus-archiver-4.4.0.jar
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.21/commons-compress-1.21.jar
+[2024-01-27 18:34:31] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/shared/file-management/3.1.0/file-management-3.1.0.jar (36 kB at 505 kB/s)
+[2024-01-27 18:34:31] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/iq80/snappy/snappy/0.4/snappy-0.4.jar
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/maven-archiver/3.6.0/maven-archiver-3.6.0.jar (26 kB at 309 kB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.9/xz-1.9.jar
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/4.4.0/plexus-archiver-4.4.0.jar (211 kB at 2.3 MB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.jar
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/3.4.0/plexus-io-3.4.0.jar (79 kB at 881 kB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.4.2/plexus-utils-3.4.2.jar
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/commons/commons-compress/1.21/commons-compress-1.21.jar (1.0 MB at 7.5 MB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/iq80/snappy/snappy/0.4/snappy-0.4.jar (58 kB at 426 kB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.jar (85 kB at 610 kB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/tukaani/xz/1.9/xz-1.9.jar (116 kB at 773 kB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.4.2/plexus-utils-3.4.2.jar (267 kB at 1.7 MB/s)
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] Building jar: /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/target/my-app-1.0-SNAPSHOT.jar
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] 
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] [1m--- [0;32mmaven-install-plugin:2.4:install[m [1m(default-install)[m @ [36mmy-app[0;1m ---[m
+[2024-01-27 18:34:32] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.pom (2.5 kB at 74 kB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/3.1/plexus-3.1.pom (19 kB at 503 kB/s)
+[2024-01-27 18:34:32] [build-stdout] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar
+[2024-01-27 18:34:32] [build-stdout] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0.5/plexus-utils-3.0.5.jar (230 kB at 4.3 MB/s)
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] Installing /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/target/my-app-1.0-SNAPSHOT.jar to /home/nic-lovin/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.jar
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] Installing /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/pom.xml to /home/nic-lovin/.m2/repository/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-SNAPSHOT.pom
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] Total time:  14.843 s
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] Finished at: 2024-01-27T18:34:32-05:00
+[2024-01-27 18:34:32] [build-stdout] [[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[2024-01-27 18:34:32] [build-stdout] [0m
+[2024-01-27 18:34:32] [build-stderr] [0m
+[2024-01-27 18:34:32] Plumbing command codeql database trace-command completed.
+[2024-01-27 18:34:32] [PROGRESS] database create> Finalizing database at /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo.
+[2024-01-27 18:34:32] Running plumbing command: codeql database finalize --mode=trim --no-db-cluster -- /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo
+[2024-01-27 18:34:32] Using pre-finalize script /home/nic-lovin/Documents/ctf/real/codeql/java/tools/pre-finalize.sh.
+[2024-01-27 18:34:32] [PROGRESS] database finalize> Running pre-finalize script /home/nic-lovin/Documents/ctf/real/codeql/java/tools/pre-finalize.sh in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app.
+[2024-01-27 18:34:32] Running plumbing command: codeql database trace-command --working-dir=/home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app --no-tracing -- /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo /home/nic-lovin/Documents/ctf/real/codeql/java/tools/pre-finalize.sh
+[2024-01-27 18:34:32] [PROGRESS] database trace-command> Running command in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app: [/home/nic-lovin/Documents/ctf/real/codeql/java/tools/pre-finalize.sh]
+[2024-01-27 18:34:33] [build-stderr] Scanning for files in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app...
+[2024-01-27 18:34:33] [build-stderr] /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo: Indexing files in in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app...
+[2024-01-27 18:34:33] [build-stderr] Running command in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app: [/home/nic-lovin/Documents/ctf/real/codeql/xml/tools/index-files.sh, /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/working/files-to-index853708064276174382.list]
+[2024-01-27 18:34:34] [build-stderr] Scanning for files in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app...
+[2024-01-27 18:34:34] [build-stderr] /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo: Indexing files in in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app...
+[2024-01-27 18:34:34] [build-stderr] Running command in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app: [/home/nic-lovin/Documents/ctf/real/codeql/properties/tools/index-files.sh, /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/working/files-to-index3025953981613941153.list]
+[2024-01-27 18:34:35] Plumbing command codeql database trace-command completed.
+[2024-01-27 18:34:35] [PROGRESS] database finalize> Running TRAP import for CodeQL database at /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo...
+[2024-01-27 18:34:35] Running plumbing command: codeql dataset import --dbscheme=/home/nic-lovin/Documents/ctf/real/codeql/java/semmlecode.dbscheme -- /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/trap/java
+[2024-01-27 18:34:35] Clearing disk cache since the version file /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java/default/cache/version does not exist
+[2024-01-27 18:34:35] Tuple pool not found. Clearing relations with cached strings
+[2024-01-27 18:34:35] Trimming disk cache at /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java/default/cache in mode clear.
+[2024-01-27 18:34:35] Sequence stamp origin is -6224960348954147958
+[2024-01-27 18:34:35] Pausing evaluation to hard-clear memory at sequence stamp o+0
+[2024-01-27 18:34:35] Unpausing evaluation
+[2024-01-27 18:34:35] Pausing evaluation to quickly trim disk at sequence stamp o+1
+[2024-01-27 18:34:35] Unpausing evaluation
+[2024-01-27 18:34:35] Pausing evaluation to zealously trim disk at sequence stamp o+2
+[2024-01-27 18:34:35] Unpausing evaluation
+[2024-01-27 18:34:35] Trimming completed (8ms): Purged everything.
+[2024-01-27 18:34:35] Scanning for files in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/trap/java
+[2024-01-27 18:34:35] Found 632 TRAP files (1.57 MiB)
+[2024-01-27 18:34:35] [PROGRESS] dataset import> Importing TRAP files
+[2024-01-27 18:34:35] Importing App.members#0.0-1706398447377-java.trap.gz (1 of 632)
+[2024-01-27 18:34:35] Importing AppTest.members#0.0-1706398447377-java.trap.gz (2 of 632)
+[2024-01-27 18:34:35] Importing Closeable.members#61.0-1674729376000-java.trap.gz (3 of 632)
+[2024-01-27 18:34:35] Importing Console.members#61.0-1674729376000-java.trap.gz (4 of 632)
+[2024-01-27 18:34:35] Importing DataInput.members#61.0-1674729376000-java.trap.gz (5 of 632)
+[2024-01-27 18:34:35] Importing DataOutput.members#61.0-1674729376000-java.trap.gz (6 of 632)
+[2024-01-27 18:34:35] Importing File.members#61.0-1674729376000-java.trap.gz (7 of 632)
+[2024-01-27 18:34:35] Importing FileDescriptor.members#61.0-1674729376000-java.trap.gz (8 of 632)
+[2024-01-27 18:34:35] Importing FileFilter.members#61.0-1674729376000-java.trap.gz (9 of 632)
+[2024-01-27 18:34:35] Importing FileNotFoundException.members#61.0-1674729376000-java.trap.gz (10 of 632)
+[2024-01-27 18:34:35] Importing FilenameFilter.members#61.0-1674729376000-java.trap.gz (11 of 632)
+[2024-01-27 18:34:35] Importing FilterOutputStream.members#61.0-1674729376000-java.trap.gz (12 of 632)
+[2024-01-27 18:34:35] Importing Flushable.members#61.0-1674729376000-java.trap.gz (13 of 632)
+[2024-01-27 18:34:35] Importing IOException.members#61.0-1674729376000-java.trap.gz (14 of 632)
+[2024-01-27 18:34:35] Importing InputStream.members#61.0-1674729376000-java.trap.gz (15 of 632)
+[2024-01-27 18:34:35] Importing InvalidClassException.members#61.0-1674729376000-java.trap.gz (16 of 632)
+[2024-01-27 18:34:35] Importing InvalidObjectException.members#61.0-1674729376000-java.trap.gz (17 of 632)
+[2024-01-27 18:34:35] Importing NotActiveException.members#61.0-1674729376000-java.trap.gz (18 of 632)
+[2024-01-27 18:34:35] Importing ObjectInput.members#61.0-1674729376000-java.trap.gz (19 of 632)
+[2024-01-27 18:34:35] Importing ObjectInputFilter$FilterInfo.members#61.0-1674729376000-java.trap.gz (20 of 632)
+[2024-01-27 18:34:35] Importing ObjectInputFilter$Status.members#61.0-1674729376000-java.trap.gz (21 of 632)
+[2024-01-27 18:34:35] Importing ObjectInputFilter.members#61.0-1674729376000-java.trap.gz (22 of 632)
+[2024-01-27 18:34:35] Importing ObjectInputStream$GetField.members#61.0-1674729376000-java.trap.gz (23 of 632)
+[2024-01-27 18:34:35] Importing ObjectInputStream.members#61.0-1674729376000-java.trap.gz (24 of 632)
+[2024-01-27 18:34:35] Importing ObjectInputValidation.members#61.0-1674729376000-java.trap.gz (25 of 632)
+[2024-01-27 18:34:35] Importing ObjectOutput.members#61.0-1674729376000-java.trap.gz (26 of 632)
+[2024-01-27 18:34:35] Importing ObjectOutputStream$PutField.members#61.0-1674729376000-java.trap.gz (27 of 632)
+[2024-01-27 18:34:35] Importing ObjectOutputStream.members#61.0-1674729376000-java.trap.gz (28 of 632)
+[2024-01-27 18:34:35] Importing ObjectStreamClass$ClassDataSlot.members#61.0-1674729376000-java.trap.gz (29 of 632)
+[2024-01-27 18:34:35] Importing ObjectStreamClass.members#61.0-1674729376000-java.trap.gz (30 of 632)
+[2024-01-27 18:34:35] Importing ObjectStreamConstants.members#61.0-1674729376000-java.trap.gz (31 of 632)
+[2024-01-27 18:34:35] Importing ObjectStreamException.members#61.0-1674729376000-java.trap.gz (32 of 632)
+[2024-01-27 18:34:35] Importing ObjectStreamField.members#61.0-1674729376000-java.trap.gz (33 of 632)
+[2024-01-27 18:34:35] Importing OptionalDataException.members#61.0-1674729376000-java.trap.gz (34 of 632)
+[2024-01-27 18:34:35] Importing OutputStream.members#61.0-1674729376000-java.trap.gz (35 of 632)
+[2024-01-27 18:34:35] Importing PrintStream.members#61.0-1674729376000-java.trap.gz (36 of 632)
+[2024-01-27 18:34:35] Importing PrintWriter.members#61.0-1674729376000-java.trap.gz (37 of 632)
+[2024-01-27 18:34:35] Importing Reader.members#61.0-1674729376000-java.trap.gz (38 of 632)
+[2024-01-27 18:34:35] Importing Serializable.members#61.0-1674729376000-java.trap.gz (39 of 632)
+[2024-01-27 18:34:35] Importing SerializablePermission.members#61.0-1674729376000-java.trap.gz (40 of 632)
+[2024-01-27 18:34:35] Importing StreamCorruptedException.members#61.0-1674729376000-java.trap.gz (41 of 632)
+[2024-01-27 18:34:35] Importing SyncFailedException.members#61.0-1674729376000-java.trap.gz (42 of 632)
+[2024-01-27 18:34:35] Importing UnsupportedEncodingException.members#61.0-1674729376000-java.trap.gz (43 of 632)
+[2024-01-27 18:34:35] Importing Writer.members#61.0-1674729376000-java.trap.gz (44 of 632)
+[2024-01-27 18:34:35] Importing AbstractStringBuilder.members#61.0-1674729376000-java.trap.gz (45 of 632)
+[2024-01-27 18:34:35] Importing Appendable.members#61.0-1674729376000-java.trap.gz (46 of 632)
+[2024-01-27 18:34:35] Importing ArrayIndexOutOfBoundsException.members#61.0-1674729376000-java.trap.gz (47 of 632)
+[2024-01-27 18:34:35] Importing AssertionError.members#61.0-1674729376000-java.trap.gz (48 of 632)
+[2024-01-27 18:34:35] Importing AutoCloseable.members#61.0-1674729376000-java.trap.gz (49 of 632)
+[2024-01-27 18:34:35] Importing Boolean.members#61.0-1674729376000-java.trap.gz (50 of 632)
+[2024-01-27 18:34:35] Importing Byte.members#61.0-1674729376000-java.trap.gz (51 of 632)
+[2024-01-27 18:34:35] Importing CharSequence.members#61.0-1674729376000-java.trap.gz (52 of 632)
+[2024-01-27 18:34:35] Importing Character.members#61.0-1674729376000-java.trap.gz (53 of 632)
+[2024-01-27 18:34:35] Importing Class.members#61.0-1674729376000-java.trap.gz (54 of 632)
+[2024-01-27 18:34:35] Importing ClassFormatError.members#61.0-1674729376000-java.trap.gz (55 of 632)
+[2024-01-27 18:34:35] Importing ClassLoader.members#61.0-1674729376000-java.trap.gz (56 of 632)
+[2024-01-27 18:34:35] Importing ClassNotFoundException.members#61.0-1674729376000-java.trap.gz (57 of 632)
+[2024-01-27 18:34:35] Importing ClassValue$ClassValueMap.members#61.0-1674729376000-java.trap.gz (58 of 632)
+[2024-01-27 18:34:35] Importing ClassValue$Entry.members#61.0-1674729376000-java.trap.gz (59 of 632)
+[2024-01-27 18:34:35] Importing ClassValue$Identity.members#61.0-1674729376000-java.trap.gz (60 of 632)
+[2024-01-27 18:34:35] Importing ClassValue$Version.members#61.0-1674729376000-java.trap.gz (61 of 632)
+[2024-01-27 18:34:35] Importing ClassValue.members#61.0-1674729376000-java.trap.gz (62 of 632)
+[2024-01-27 18:34:35] Importing CloneNotSupportedException.members#61.0-1674729376000-java.trap.gz (63 of 632)
+[2024-01-27 18:34:35] Importing Cloneable.members#61.0-1674729376000-java.trap.gz (64 of 632)
+[2024-01-27 18:34:35] Importing Comparable.members#61.0-1674729376000-java.trap.gz (65 of 632)
+[2024-01-27 18:34:35] Importing Deprecated.members#61.0-1674729376000-java.trap.gz (66 of 632)
+[2024-01-27 18:34:35] Importing Double.members#61.0-1674729376000-java.trap.gz (67 of 632)
+[2024-01-27 18:34:35] Importing Enum$EnumDesc.members#61.0-1674729376000-java.trap.gz (68 of 632)
+[2024-01-27 18:34:35] Importing Enum.members#61.0-1674729376000-java.trap.gz (69 of 632)
+[2024-01-27 18:34:35] Importing Error.members#61.0-1674729376000-java.trap.gz (70 of 632)
+[2024-01-27 18:34:35] Importing Exception.members#61.0-1674729376000-java.trap.gz (71 of 632)
+[2024-01-27 18:34:35] Importing Float.members#61.0-1674729376000-java.trap.gz (72 of 632)
+[2024-01-27 18:34:35] Importing FunctionalInterface.members#61.0-1674729376000-java.trap.gz (73 of 632)
+[2024-01-27 18:34:35] Importing IllegalAccessException.members#61.0-1674729376000-java.trap.gz (74 of 632)
+[2024-01-27 18:34:35] Importing IllegalArgumentException.members#61.0-1674729376000-java.trap.gz (75 of 632)
+[2024-01-27 18:34:35] Importing IndexOutOfBoundsException.members#61.0-1674729376000-java.trap.gz (76 of 632)
+[2024-01-27 18:34:35] Importing InstantiationException.members#61.0-1674729376000-java.trap.gz (77 of 632)
+[2024-01-27 18:34:35] Importing Integer.members#61.0-1674729376000-java.trap.gz (78 of 632)
+[2024-01-27 18:34:35] Importing InternalError.members#61.0-1674729376000-java.trap.gz (79 of 632)
+[2024-01-27 18:34:35] Importing InterruptedException.members#61.0-1674729376000-java.trap.gz (80 of 632)
+[2024-01-27 18:34:35] Importing Iterable.members#61.0-1674729376000-java.trap.gz (81 of 632)
+[2024-01-27 18:34:35] Importing LinkageError.members#61.0-1674729376000-java.trap.gz (82 of 632)
+[2024-01-27 18:34:35] Importing Long.members#61.0-1674729376000-java.trap.gz (83 of 632)
+[2024-01-27 18:34:35] Importing Module.members#61.0-1674729376000-java.trap.gz (84 of 632)
+[2024-01-27 18:34:35] Importing ModuleLayer$Controller.members#61.0-1674729376000-java.trap.gz (85 of 632)
+[2024-01-27 18:34:35] Importing ModuleLayer.members#61.0-1674729376000-java.trap.gz (86 of 632)
+[2024-01-27 18:34:35] Importing NamedPackage.members#61.0-1674729376000-java.trap.gz (87 of 632)
+[2024-01-27 18:34:35] Importing NoSuchFieldException.members#61.0-1674729376000-java.trap.gz (88 of 632)
+[2024-01-27 18:34:35] Importing NoSuchMethodException.members#61.0-1674729376000-java.trap.gz (89 of 632)
+[2024-01-27 18:34:35] Importing Number.members#61.0-1674729376000-java.trap.gz (90 of 632)
+[2024-01-27 18:34:35] Importing NumberFormatException.members#61.0-1674729376000-java.trap.gz (91 of 632)
+[2024-01-27 18:34:35] Importing Object.members#61.0-1674729376000-java.trap.gz (92 of 632)
+[2024-01-27 18:34:35] Importing Package.members#61.0-1674729376000-java.trap.gz (93 of 632)
+[2024-01-27 18:34:35] Importing Readable.members#61.0-1674729376000-java.trap.gz (94 of 632)
+[2024-01-27 18:34:35] Importing ReflectiveOperationException.members#61.0-1674729376000-java.trap.gz (95 of 632)
+[2024-01-27 18:34:35] Importing Runnable.members#61.0-1674729376000-java.trap.gz (96 of 632)
+[2024-01-27 18:34:35] Importing RuntimeException.members#61.0-1674729376000-java.trap.gz (97 of 632)
+[2024-01-27 18:34:35] Importing SafeVarargs.members#61.0-1674729376000-java.trap.gz (98 of 632)
+[2024-01-27 18:34:35] Importing SecurityException.members#61.0-1674729376000-java.trap.gz (99 of 632)
+[2024-01-27 18:34:35] Importing SecurityManager.members#61.0-1674729376000-java.trap.gz (100 of 632)
+[2024-01-27 18:34:35] Importing Short.members#61.0-1674729376000-java.trap.gz (101 of 632)
+[2024-01-27 18:34:35] Importing StackFrameInfo.members#61.0-1674729376000-java.trap.gz (102 of 632)
+[2024-01-27 18:34:35] Importing StackTraceElement.members#61.0-1674729376000-java.trap.gz (103 of 632)
+[2024-01-27 18:34:35] Importing StackWalker$ExtendedOption.members#61.0-1674729376000-java.trap.gz (104 of 632)
+[2024-01-27 18:34:35] Importing StackWalker$Option.members#61.0-1674729376000-java.trap.gz (105 of 632)
+[2024-01-27 18:34:35] Importing StackWalker$StackFrame.members#61.0-1674729376000-java.trap.gz (106 of 632)
+[2024-01-27 18:34:35] Importing StackWalker.members#61.0-1674729376000-java.trap.gz (107 of 632)
+[2024-01-27 18:34:35] Importing String.members#61.0-1674729376000-java.trap.gz (108 of 632)
+[2024-01-27 18:34:35] Importing StringBuffer.members#61.0-1674729376000-java.trap.gz (109 of 632)
+[2024-01-27 18:34:35] Importing StringBuilder.members#61.0-1674729376000-java.trap.gz (110 of 632)
+[2024-01-27 18:34:35] Importing System$Logger$Level.members#61.0-1674729376000-java.trap.gz (111 of 632)
+[2024-01-27 18:34:35] Importing System$Logger.members#61.0-1674729376000-java.trap.gz (112 of 632)
+[2024-01-27 18:34:35] Importing System.members#61.0-1674729376000-java.trap.gz (113 of 632)
+[2024-01-27 18:34:35] Importing Thread$State.members#61.0-1674729376000-java.trap.gz (114 of 632)
+[2024-01-27 18:34:35] Importing Thread$UncaughtExceptionHandler.members#61.0-1674729376000-java.trap.gz (115 of 632)
+[2024-01-27 18:34:35] Importing Thread.members#61.0-1674729376000-java.trap.gz (116 of 632)
+[2024-01-27 18:34:35] Importing ThreadGroup.members#61.0-1674729376000-java.trap.gz (117 of 632)
+[2024-01-27 18:34:35] Importing ThreadLocal$ThreadLocalMap.members#61.0-1674729376000-java.trap.gz (118 of 632)
+[2024-01-27 18:34:35] Importing ThreadLocal.members#61.0-1674729376000-java.trap.gz (119 of 632)
+[2024-01-27 18:34:35] Importing Throwable.members#61.0-1674729376000-java.trap.gz (120 of 632)
+[2024-01-27 18:34:35] Importing TypeNotPresentException.members#61.0-1674729376000-java.trap.gz (121 of 632)
+[2024-01-27 18:34:35] Importing UnsupportedOperationException.members#61.0-1674729376000-java.trap.gz (122 of 632)
+[2024-01-27 18:34:35] Importing VirtualMachineError.members#61.0-1674729376000-java.trap.gz (123 of 632)
+[2024-01-27 18:34:35] Importing Void.members#61.0-1674729376000-java.trap.gz (124 of 632)
+[2024-01-27 18:34:35] Importing Annotation.members#61.0-1674729376000-java.trap.gz (125 of 632)
+[2024-01-27 18:34:35] Importing Documented.members#61.0-1674729376000-java.trap.gz (126 of 632)
+[2024-01-27 18:34:35] Importing ElementType.members#61.0-1674729376000-java.trap.gz (127 of 632)
+[2024-01-27 18:34:35] Importing Inherited.members#61.0-1674729376000-java.trap.gz (128 of 632)
+[2024-01-27 18:34:35] Importing Retention.members#61.0-1674729376000-java.trap.gz (129 of 632)
+[2024-01-27 18:34:35] Importing RetentionPolicy.members#61.0-1674729376000-java.trap.gz (130 of 632)
+[2024-01-27 18:34:35] Importing Target.members#61.0-1674729376000-java.trap.gz (131 of 632)
+[2024-01-27 18:34:35] Importing ClassDesc.members#61.0-1674729376000-java.trap.gz (132 of 632)
+[2024-01-27 18:34:35] Importing Constable.members#61.0-1674729376000-java.trap.gz (133 of 632)
+[2024-01-27 18:34:35] Importing ConstantDesc.members#61.0-1674729376000-java.trap.gz (134 of 632)
+[2024-01-27 18:34:35] Importing DirectMethodHandleDesc$Kind.members#61.0-1674729376000-java.trap.gz (135 of 632)
+[2024-01-27 18:34:35] Importing DirectMethodHandleDesc.members#61.0-1674729376000-java.trap.gz (136 of 632)
+[2024-01-27 18:34:35] Importing DynamicConstantDesc.members#61.0-1674729376000-java.trap.gz (137 of 632)
+[2024-01-27 18:34:35] Importing MethodHandleDesc.members#61.0-1674729376000-java.trap.gz (138 of 632)
+[2024-01-27 18:34:35] Importing MethodTypeDesc.members#61.0-1674729376000-java.trap.gz (139 of 632)
+[2024-01-27 18:34:35] Importing BoundMethodHandle$Specializer$Factory.members#61.0-1674729376000-java.trap.gz (140 of 632)
+[2024-01-27 18:34:35] Importing BoundMethodHandle$Specializer.members#61.0-1674729376000-java.trap.gz (141 of 632)
+[2024-01-27 18:34:35] Importing BoundMethodHandle$SpeciesData.members#61.0-1674729376000-java.trap.gz (142 of 632)
+[2024-01-27 18:34:35] Importing BoundMethodHandle.members#61.0-1674729376000-java.trap.gz (143 of 632)
+[2024-01-27 18:34:35] Importing CallSite.members#61.0-1674729376000-java.trap.gz (144 of 632)
+[2024-01-27 18:34:35] Importing ClassSpecializer$Factory.members#61.0-1674729376000-java.trap.gz (145 of 632)
+[2024-01-27 18:34:35] Importing ClassSpecializer$SpeciesData.members#61.0-1674729376000-java.trap.gz (146 of 632)
+[2024-01-27 18:34:35] Importing ClassSpecializer.members#61.0-1674729376000-java.trap.gz (147 of 632)
+[2024-01-27 18:34:35] Importing DirectMethodHandle.members#61.0-1674729376000-java.trap.gz (148 of 632)
+[2024-01-27 18:34:35] Importing Invokers.members#61.0-1674729376000-java.trap.gz (149 of 632)
+[2024-01-27 18:34:35] Importing LambdaForm$BasicType.members#61.0-1674729376000-java.trap.gz (150 of 632)
+[2024-01-27 18:34:35] Importing LambdaForm$Kind.members#61.0-1674729376000-java.trap.gz (151 of 632)
+[2024-01-27 18:34:35] Importing LambdaForm$Name.members#61.0-1674729376000-java.trap.gz (152 of 632)
+[2024-01-27 18:34:35] Importing LambdaForm$NamedFunction.members#61.0-1674729376000-java.trap.gz (153 of 632)
+[2024-01-27 18:34:35] Importing LambdaForm.members#61.0-1674729376000-java.trap.gz (154 of 632)
+[2024-01-27 18:34:35] Importing LambdaFormEditor.members#61.0-1674729376000-java.trap.gz (155 of 632)
+[2024-01-27 18:34:35] Importing MemberName$Factory.members#61.0-1674729376000-java.trap.gz (156 of 632)
+[2024-01-27 18:34:35] Importing MemberName.members#61.0-1674729376000-java.trap.gz (157 of 632)
+[2024-01-27 18:34:35] Importing MethodHandle$PolymorphicSignature.members#61.0-1674729376000-java.trap.gz (158 of 632)
+[2024-01-27 18:34:35] Importing MethodHandle.members#61.0-1674729376000-java.trap.gz (159 of 632)
+[2024-01-27 18:34:35] Importing MethodHandleImpl$ArrayAccess.members#61.0-1674729376000-java.trap.gz (160 of 632)
+[2024-01-27 18:34:35] Importing MethodHandleImpl$CasesHolder.members#61.0-1674729376000-java.trap.gz (161 of 632)
+[2024-01-27 18:34:35] Importing MethodHandleImpl$Intrinsic.members#61.0-1674729376000-java.trap.gz (162 of 632)
+[2024-01-27 18:34:35] Importing MethodHandleImpl$LoopClauses.members#61.0-1674729376000-java.trap.gz (163 of 632)
+[2024-01-27 18:34:35] Importing MethodHandleImpl.members#61.0-1674729376000-java.trap.gz (164 of 632)
+[2024-01-27 18:34:35] Importing MethodHandleInfo.members#61.0-1674729376000-java.trap.gz (165 of 632)
+[2024-01-27 18:34:35] Importing MethodHandles$Lookup$ClassDefiner.members#61.0-1674729376000-java.trap.gz (166 of 632)
+[2024-01-27 18:34:35] Importing MethodHandles$Lookup$ClassOption.members#61.0-1674729376000-java.trap.gz (167 of 632)
+[2024-01-27 18:34:35] Importing MethodHandles$Lookup.members#61.0-1674729376000-java.trap.gz (168 of 632)
+[2024-01-27 18:34:35] Importing MethodHandles.members#61.0-1674729376000-java.trap.gz (169 of 632)
+[2024-01-27 18:34:35] Importing MethodType$ConcurrentWeakInternSet.members#61.0-1674729376000-java.trap.gz (170 of 632)
+[2024-01-27 18:34:35] Importing MethodType.members#61.0-1674729376000-java.trap.gz (171 of 632)
+[2024-01-27 18:34:35] Importing MethodTypeForm.members#61.0-1674729376000-java.trap.gz (172 of 632)
+[2024-01-27 18:34:35] Importing TypeDescriptor$OfField.members#61.0-1674729376000-java.trap.gz (173 of 632)
+[2024-01-27 18:34:35] Importing TypeDescriptor$OfMethod.members#61.0-1674729376000-java.trap.gz (174 of 632)
+[2024-01-27 18:34:35] Importing TypeDescriptor.members#61.0-1674729376000-java.trap.gz (175 of 632)
+[2024-01-27 18:34:35] Importing VarForm.members#61.0-1674729376000-java.trap.gz (176 of 632)
+[2024-01-27 18:34:35] Importing VarHandle$AccessDescriptor.members#61.0-1674729376000-java.trap.gz (177 of 632)
+[2024-01-27 18:34:35] Importing VarHandle$AccessMode.members#61.0-1674729376000-java.trap.gz (178 of 632)
+[2024-01-27 18:34:35] Importing VarHandle$AccessType.members#61.0-1674729376000-java.trap.gz (179 of 632)
+[2024-01-27 18:34:35] Importing VarHandle$TypesAndInvokers.members#61.0-1674729376000-java.trap.gz (180 of 632)
+[2024-01-27 18:34:35] Importing VarHandle$VarHandleDesc.members#61.0-1674729376000-java.trap.gz (181 of 632)
+[2024-01-27 18:34:35] Importing VarHandle.members#61.0-1674729376000-java.trap.gz (182 of 632)
+[2024-01-27 18:34:35] Importing WrongMethodTypeException.members#61.0-1674729376000-java.trap.gz (183 of 632)
+[2024-01-27 18:34:35] Importing Configuration.members#61.0-1674729376000-java.trap.gz (184 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Builder.members#61.0-1674729376000-java.trap.gz (185 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Exports$Modifier.members#61.0-1674729376000-java.trap.gz (186 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Exports.members#61.0-1674729376000-java.trap.gz (187 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Modifier.members#61.0-1674729376000-java.trap.gz (188 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Opens$Modifier.members#61.0-1674729376000-java.trap.gz (189 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Opens.members#61.0-1674729376000-java.trap.gz (190 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Provides.members#61.0-1674729376000-java.trap.gz (191 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Requires$Modifier.members#61.0-1674729376000-java.trap.gz (192 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Requires.members#61.0-1674729376000-java.trap.gz (193 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor$Version.members#61.0-1674729376000-java.trap.gz (194 of 632)
+[2024-01-27 18:34:35] Importing ModuleDescriptor.members#61.0-1674729376000-java.trap.gz (195 of 632)
+[2024-01-27 18:34:35] Importing ModuleFinder.members#61.0-1674729376000-java.trap.gz (196 of 632)
+[2024-01-27 18:34:35] Importing ModuleReader.members#61.0-1674729376000-java.trap.gz (197 of 632)
+[2024-01-27 18:34:35] Importing ModuleReference.members#61.0-1674729376000-java.trap.gz (198 of 632)
+[2024-01-27 18:34:35] Importing ResolvedModule.members#61.0-1674729376000-java.trap.gz (199 of 632)
+[2024-01-27 18:34:35] Importing Cleaner$Cleanable.members#61.0-1674729376000-java.trap.gz (200 of 632)
+[2024-01-27 18:34:35] Importing Cleaner.members#61.0-1674729376000-java.trap.gz (201 of 632)
+[2024-01-27 18:34:35] Importing PhantomReference.members#61.0-1674729376000-java.trap.gz (202 of 632)
+[2024-01-27 18:34:35] Importing Reference.members#61.0-1674729376000-java.trap.gz (203 of 632)
+[2024-01-27 18:34:35] Importing ReferenceQueue.members#61.0-1674729376000-java.trap.gz (204 of 632)
+[2024-01-27 18:34:35] Importing SoftReference.members#61.0-1674729376000-java.trap.gz (205 of 632)
+[2024-01-27 18:34:35] Importing WeakReference.members#61.0-1674729376000-java.trap.gz (206 of 632)
+[2024-01-27 18:34:35] Importing AccessibleObject.members#61.0-1674729376000-java.trap.gz (207 of 632)
+[2024-01-27 18:34:35] Importing AnnotatedElement.members#61.0-1674729376000-java.trap.gz (208 of 632)
+[2024-01-27 18:34:35] Importing AnnotatedType.members#61.0-1674729376000-java.trap.gz (209 of 632)
+[2024-01-27 18:34:35] Importing Constructor.members#61.0-1674729376000-java.trap.gz (210 of 632)
+[2024-01-27 18:34:35] Importing Executable.members#61.0-1674729376000-java.trap.gz (211 of 632)
+[2024-01-27 18:34:35] Importing Field.members#61.0-1674729376000-java.trap.gz (212 of 632)
+[2024-01-27 18:34:35] Importing GenericDeclaration.members#61.0-1674729376000-java.trap.gz (213 of 632)
+[2024-01-27 18:34:35] Importing InvocationTargetException.members#61.0-1674729376000-java.trap.gz (214 of 632)
+[2024-01-27 18:34:35] Importing Member.members#61.0-1674729376000-java.trap.gz (215 of 632)
+[2024-01-27 18:34:35] Importing Method.members#61.0-1674729376000-java.trap.gz (216 of 632)
+[2024-01-27 18:34:35] Importing Parameter.members#61.0-1674729376000-java.trap.gz (217 of 632)
+[2024-01-27 18:34:35] Importing ParameterizedType.members#61.0-1674729376000-java.trap.gz (218 of 632)
+[2024-01-27 18:34:35] Importing RecordComponent.members#61.0-1674729376000-java.trap.gz (219 of 632)
+[2024-01-27 18:34:35] Importing Type.members#61.0-1674729376000-java.trap.gz (220 of 632)
+[2024-01-27 18:34:35] Importing TypeVariable.members#61.0-1674729376000-java.trap.gz (221 of 632)
+[2024-01-27 18:34:35] Importing WildcardType.members#61.0-1674729376000-java.trap.gz (222 of 632)
+[2024-01-27 18:34:35] Importing BigInteger.members#61.0-1674729376000-java.trap.gz (223 of 632)
+[2024-01-27 18:34:35] Importing ContentHandler.members#61.0-1674729376000-java.trap.gz (224 of 632)
+[2024-01-27 18:34:35] Importing ContentHandlerFactory.members#61.0-1674729376000-java.trap.gz (225 of 632)
+[2024-01-27 18:34:35] Importing FileNameMap.members#61.0-1674729376000-java.trap.gz (226 of 632)
+[2024-01-27 18:34:35] Importing InetAddress$InetAddressHolder.members#61.0-1674729376000-java.trap.gz (227 of 632)
+[2024-01-27 18:34:35] Importing InetAddress.members#61.0-1674729376000-java.trap.gz (228 of 632)
+[2024-01-27 18:34:35] Importing InetAddressImpl.members#61.0-1674729376000-java.trap.gz (229 of 632)
+[2024-01-27 18:34:35] Importing InterfaceAddress.members#61.0-1674729376000-java.trap.gz (230 of 632)
+[2024-01-27 18:34:35] Importing MalformedURLException.members#61.0-1674729376000-java.trap.gz (231 of 632)
+[2024-01-27 18:34:35] Importing NetworkInterface.members#61.0-1674729376000-java.trap.gz (232 of 632)
+[2024-01-27 18:34:35] Importing Proxy$Type.members#61.0-1674729376000-java.trap.gz (233 of 632)
+[2024-01-27 18:34:35] Importing Proxy.members#61.0-1674729376000-java.trap.gz (234 of 632)
+[2024-01-27 18:34:35] Importing SocketAddress.members#61.0-1674729376000-java.trap.gz (235 of 632)
+[2024-01-27 18:34:35] Importing SocketException.members#61.0-1674729376000-java.trap.gz (236 of 632)
+[2024-01-27 18:34:35] Importing URI.members#61.0-1674729376000-java.trap.gz (237 of 632)
+[2024-01-27 18:34:35] Importing URISyntaxException.members#61.0-1674729376000-java.trap.gz (238 of 632)
+[2024-01-27 18:34:35] Importing URL.members#61.0-1674729376000-java.trap.gz (239 of 632)
+[2024-01-27 18:34:35] Importing URLConnection.members#61.0-1674729376000-java.trap.gz (240 of 632)
+[2024-01-27 18:34:35] Importing URLStreamHandler.members#61.0-1674729376000-java.trap.gz (241 of 632)
+[2024-01-27 18:34:35] Importing URLStreamHandlerFactory.members#61.0-1674729376000-java.trap.gz (242 of 632)
+[2024-01-27 18:34:35] Importing UnknownHostException.members#61.0-1674729376000-java.trap.gz (243 of 632)
+[2024-01-27 18:34:35] Importing Buffer.members#61.0-1674729376000-java.trap.gz (244 of 632)
+[2024-01-27 18:34:35] Importing ByteBuffer.members#61.0-1674729376000-java.trap.gz (245 of 632)
+[2024-01-27 18:34:35] Importing ByteOrder.members#61.0-1674729376000-java.trap.gz (246 of 632)
+[2024-01-27 18:34:35] Importing CharBuffer.members#61.0-1674729376000-java.trap.gz (247 of 632)
+[2024-01-27 18:34:35] Importing DoubleBuffer.members#61.0-1674729376000-java.trap.gz (248 of 632)
+[2024-01-27 18:34:35] Importing FloatBuffer.members#61.0-1674729376000-java.trap.gz (249 of 632)
+[2024-01-27 18:34:35] Importing IntBuffer.members#61.0-1674729376000-java.trap.gz (250 of 632)
+[2024-01-27 18:34:35] Importing LongBuffer.members#61.0-1674729376000-java.trap.gz (251 of 632)
+[2024-01-27 18:34:35] Importing MappedByteBuffer.members#61.0-1674729376000-java.trap.gz (252 of 632)
+[2024-01-27 18:34:35] Importing ShortBuffer.members#61.0-1674729376000-java.trap.gz (253 of 632)
+[2024-01-27 18:34:35] Importing AsynchronousChannel.members#61.0-1674729376000-java.trap.gz (254 of 632)
+[2024-01-27 18:34:35] Importing AsynchronousCloseException.members#61.0-1674729376000-java.trap.gz (255 of 632)
+[2024-01-27 18:34:35] Importing AsynchronousFileChannel.members#61.0-1674729376000-java.trap.gz (256 of 632)
+[2024-01-27 18:34:35] Importing ByteChannel.members#61.0-1674729376000-java.trap.gz (257 of 632)
+[2024-01-27 18:34:35] Importing Channel.members#61.0-1674729376000-java.trap.gz (258 of 632)
+[2024-01-27 18:34:35] Importing ClosedChannelException.members#61.0-1674729376000-java.trap.gz (259 of 632)
+[2024-01-27 18:34:35] Importing CompletionHandler.members#61.0-1674729376000-java.trap.gz (260 of 632)
+[2024-01-27 18:34:35] Importing FileChannel$MapMode.members#61.0-1674729376000-java.trap.gz (261 of 632)
+[2024-01-27 18:34:35] Importing FileChannel.members#61.0-1674729376000-java.trap.gz (262 of 632)
+[2024-01-27 18:34:35] Importing FileLock.members#61.0-1674729376000-java.trap.gz (263 of 632)
+[2024-01-27 18:34:35] Importing GatheringByteChannel.members#61.0-1674729376000-java.trap.gz (264 of 632)
+[2024-01-27 18:34:35] Importing InterruptibleChannel.members#61.0-1674729376000-java.trap.gz (265 of 632)
+[2024-01-27 18:34:35] Importing ReadableByteChannel.members#61.0-1674729376000-java.trap.gz (266 of 632)
+[2024-01-27 18:34:35] Importing ScatteringByteChannel.members#61.0-1674729376000-java.trap.gz (267 of 632)
+[2024-01-27 18:34:35] Importing SeekableByteChannel.members#61.0-1674729376000-java.trap.gz (268 of 632)
+[2024-01-27 18:34:35] Importing WritableByteChannel.members#61.0-1674729376000-java.trap.gz (269 of 632)
+[2024-01-27 18:34:35] Importing AbstractInterruptibleChannel.members#61.0-1674729376000-java.trap.gz (270 of 632)
+[2024-01-27 18:34:35] Importing CharacterCodingException.members#61.0-1674729376000-java.trap.gz (271 of 632)
+[2024-01-27 18:34:35] Importing Charset.members#61.0-1674729376000-java.trap.gz (272 of 632)
+[2024-01-27 18:34:35] Importing CharsetDecoder.members#61.0-1674729376000-java.trap.gz (273 of 632)
+[2024-01-27 18:34:35] Importing CharsetEncoder.members#61.0-1674729376000-java.trap.gz (274 of 632)
+[2024-01-27 18:34:35] Importing CoderResult.members#61.0-1674729376000-java.trap.gz (275 of 632)
+[2024-01-27 18:34:35] Importing CodingErrorAction.members#61.0-1674729376000-java.trap.gz (276 of 632)
+[2024-01-27 18:34:35] Importing AccessMode.members#61.0-1674729376000-java.trap.gz (277 of 632)
+[2024-01-27 18:34:35] Importing CopyOption.members#61.0-1674729376000-java.trap.gz (278 of 632)
+[2024-01-27 18:34:35] Importing DirectoryStream$Filter.members#61.0-1674729376000-java.trap.gz (279 of 632)
+[2024-01-27 18:34:35] Importing DirectoryStream.members#61.0-1674729376000-java.trap.gz (280 of 632)
+[2024-01-27 18:34:35] Importing FileStore.members#61.0-1674729376000-java.trap.gz (281 of 632)
+[2024-01-27 18:34:35] Importing FileSystem.members#61.0-1674729376000-java.trap.gz (282 of 632)
+[2024-01-27 18:34:35] Importing LinkOption.members#61.0-1674729376000-java.trap.gz (283 of 632)
+[2024-01-27 18:34:35] Importing OpenOption.members#61.0-1674729376000-java.trap.gz (284 of 632)
+[2024-01-27 18:34:35] Importing Path.members#61.0-1674729376000-java.trap.gz (285 of 632)
+[2024-01-27 18:34:35] Importing PathMatcher.members#61.0-1674729376000-java.trap.gz (286 of 632)
+[2024-01-27 18:34:35] Importing WatchEvent$Kind.members#61.0-1674729376000-java.trap.gz (287 of 632)
+[2024-01-27 18:34:35] Importing WatchEvent$Modifier.members#61.0-1674729376000-java.trap.gz (288 of 632)
+[2024-01-27 18:34:35] Importing WatchEvent.members#61.0-1674729376000-java.trap.gz (289 of 632)
+[2024-01-27 18:34:35] Importing WatchKey.members#61.0-1674729376000-java.trap.gz (290 of 632)
+[2024-01-27 18:34:35] Importing WatchService.members#61.0-1674729376000-java.trap.gz (291 of 632)
+[2024-01-27 18:34:35] Importing Watchable.members#61.0-1674729376000-java.trap.gz (292 of 632)
+[2024-01-27 18:34:35] Importing AttributeView.members#61.0-1674729376000-java.trap.gz (293 of 632)
+[2024-01-27 18:34:35] Importing BasicFileAttributes.members#61.0-1674729376000-java.trap.gz (294 of 632)
+[2024-01-27 18:34:35] Importing FileAttribute.members#61.0-1674729376000-java.trap.gz (295 of 632)
+[2024-01-27 18:34:35] Importing FileAttributeView.members#61.0-1674729376000-java.trap.gz (296 of 632)
+[2024-01-27 18:34:35] Importing FileStoreAttributeView.members#61.0-1674729376000-java.trap.gz (297 of 632)
+[2024-01-27 18:34:35] Importing FileTime.members#61.0-1674729376000-java.trap.gz (298 of 632)
+[2024-01-27 18:34:35] Importing GroupPrincipal.members#61.0-1674729376000-java.trap.gz (299 of 632)
+[2024-01-27 18:34:35] Importing UserPrincipal.members#61.0-1674729376000-java.trap.gz (300 of 632)
+[2024-01-27 18:34:35] Importing UserPrincipalLookupService.members#61.0-1674729376000-java.trap.gz (301 of 632)
+[2024-01-27 18:34:35] Importing FileSystemProvider.members#61.0-1674729376000-java.trap.gz (302 of 632)
+[2024-01-27 18:34:35] Importing AccessControlContext.members#61.0-1674729376000-java.trap.gz (303 of 632)
+[2024-01-27 18:34:35] Importing AccessControlException.members#61.0-1674729376000-java.trap.gz (304 of 632)
+[2024-01-27 18:34:35] Importing BasicPermission.members#61.0-1674729376000-java.trap.gz (305 of 632)
+[2024-01-27 18:34:35] Importing CodeSigner.members#61.0-1674729376000-java.trap.gz (306 of 632)
+[2024-01-27 18:34:35] Importing CodeSource.members#61.0-1674729376000-java.trap.gz (307 of 632)
+[2024-01-27 18:34:35] Importing DomainCombiner.members#61.0-1674729376000-java.trap.gz (308 of 632)
+[2024-01-27 18:34:35] Importing GeneralSecurityException.members#61.0-1674729376000-java.trap.gz (309 of 632)
+[2024-01-27 18:34:35] Importing Guard.members#61.0-1674729376000-java.trap.gz (310 of 632)
+[2024-01-27 18:34:35] Importing InvalidKeyException.members#61.0-1674729376000-java.trap.gz (311 of 632)
+[2024-01-27 18:34:35] Importing Key.members#61.0-1674729376000-java.trap.gz (312 of 632)
+[2024-01-27 18:34:35] Importing KeyException.members#61.0-1674729376000-java.trap.gz (313 of 632)
+[2024-01-27 18:34:35] Importing NoSuchAlgorithmException.members#61.0-1674729376000-java.trap.gz (314 of 632)
+[2024-01-27 18:34:35] Importing NoSuchProviderException.members#61.0-1674729376000-java.trap.gz (315 of 632)
+[2024-01-27 18:34:35] Importing Permission.members#61.0-1674729376000-java.trap.gz (316 of 632)
+[2024-01-27 18:34:35] Importing PermissionCollection.members#61.0-1674729376000-java.trap.gz (317 of 632)
+[2024-01-27 18:34:35] Importing Principal.members#61.0-1674729376000-java.trap.gz (318 of 632)
+[2024-01-27 18:34:35] Importing PrivilegedAction.members#61.0-1674729376000-java.trap.gz (319 of 632)
+[2024-01-27 18:34:35] Importing PrivilegedActionException.members#61.0-1674729376000-java.trap.gz (320 of 632)
+[2024-01-27 18:34:35] Importing PrivilegedExceptionAction.members#61.0-1674729376000-java.trap.gz (321 of 632)
+[2024-01-27 18:34:35] Importing ProtectionDomain$Key.members#61.0-1674729376000-java.trap.gz (322 of 632)
+[2024-01-27 18:34:35] Importing ProtectionDomain.members#61.0-1674729376000-java.trap.gz (323 of 632)
+[2024-01-27 18:34:35] Importing Provider$Service.members#61.0-1674729376000-java.trap.gz (324 of 632)
+[2024-01-27 18:34:35] Importing Provider.members#61.0-1674729376000-java.trap.gz (325 of 632)
+[2024-01-27 18:34:35] Importing PublicKey.members#61.0-1674729376000-java.trap.gz (326 of 632)
+[2024-01-27 18:34:35] Importing SignatureException.members#61.0-1674729376000-java.trap.gz (327 of 632)
+[2024-01-27 18:34:35] Importing Timestamp.members#61.0-1674729376000-java.trap.gz (328 of 632)
+[2024-01-27 18:34:35] Importing CertPath.members#61.0-1674729376000-java.trap.gz (329 of 632)
+[2024-01-27 18:34:35] Importing Certificate.members#61.0-1674729376000-java.trap.gz (330 of 632)
+[2024-01-27 18:34:35] Importing CertificateEncodingException.members#61.0-1674729376000-java.trap.gz (331 of 632)
+[2024-01-27 18:34:35] Importing CertificateException.members#61.0-1674729376000-java.trap.gz (332 of 632)
+[2024-01-27 18:34:35] Importing AttributedCharacterIterator$Attribute.members#61.0-1674729376000-java.trap.gz (333 of 632)
+[2024-01-27 18:34:35] Importing AttributedCharacterIterator.members#61.0-1674729376000-java.trap.gz (334 of 632)
+[2024-01-27 18:34:35] Importing CharacterIterator.members#61.0-1674729376000-java.trap.gz (335 of 632)
+[2024-01-27 18:34:35] Importing FieldPosition.members#61.0-1674729376000-java.trap.gz (336 of 632)
+[2024-01-27 18:34:35] Importing Format$Field.members#61.0-1674729376000-java.trap.gz (337 of 632)
+[2024-01-27 18:34:35] Importing Format$FieldDelegate.members#61.0-1674729376000-java.trap.gz (338 of 632)
+[2024-01-27 18:34:35] Importing Format.members#61.0-1674729376000-java.trap.gz (339 of 632)
+[2024-01-27 18:34:35] Importing ParseException.members#61.0-1674729376000-java.trap.gz (340 of 632)
+[2024-01-27 18:34:35] Importing ParsePosition.members#61.0-1674729376000-java.trap.gz (341 of 632)
+[2024-01-27 18:34:35] Importing Clock.members#61.0-1674729376000-java.trap.gz (342 of 632)
+[2024-01-27 18:34:35] Importing DayOfWeek.members#61.0-1674729376000-java.trap.gz (343 of 632)
+[2024-01-27 18:34:35] Importing Duration.members#61.0-1674729376000-java.trap.gz (344 of 632)
+[2024-01-27 18:34:35] Importing Instant.members#61.0-1674729376000-java.trap.gz (345 of 632)
+[2024-01-27 18:34:35] Importing InstantSource.members#61.0-1674729376000-java.trap.gz (346 of 632)
+[2024-01-27 18:34:35] Importing LocalDate.members#61.0-1674729376000-java.trap.gz (347 of 632)
+[2024-01-27 18:34:35] Importing LocalDateTime.members#61.0-1674729376000-java.trap.gz (348 of 632)
+[2024-01-27 18:34:35] Importing LocalTime.members#61.0-1674729376000-java.trap.gz (349 of 632)
+[2024-01-27 18:34:35] Importing Month.members#61.0-1674729376000-java.trap.gz (350 of 632)
+[2024-01-27 18:34:35] Importing OffsetDateTime.members#61.0-1674729376000-java.trap.gz (351 of 632)
+[2024-01-27 18:34:35] Importing OffsetTime.members#61.0-1674729376000-java.trap.gz (352 of 632)
+[2024-01-27 18:34:35] Importing Period.members#61.0-1674729376000-java.trap.gz (353 of 632)
+[2024-01-27 18:34:35] Importing ZoneId.members#61.0-1674729376000-java.trap.gz (354 of 632)
+[2024-01-27 18:34:35] Importing ZoneOffset.members#61.0-1674729376000-java.trap.gz (355 of 632)
+[2024-01-27 18:34:35] Importing ZonedDateTime.members#61.0-1674729376000-java.trap.gz (356 of 632)
+[2024-01-27 18:34:35] Importing AbstractChronology.members#61.0-1674729376000-java.trap.gz (357 of 632)
+[2024-01-27 18:34:35] Importing ChronoLocalDate.members#61.0-1674729376000-java.trap.gz (358 of 632)
+[2024-01-27 18:34:35] Importing ChronoLocalDateTime.members#61.0-1674729376000-java.trap.gz (359 of 632)
+[2024-01-27 18:34:35] Importing ChronoPeriod.members#61.0-1674729376000-java.trap.gz (360 of 632)
+[2024-01-27 18:34:35] Importing ChronoZonedDateTime.members#61.0-1674729376000-java.trap.gz (361 of 632)
+[2024-01-27 18:34:35] Importing Chronology.members#61.0-1674729376000-java.trap.gz (362 of 632)
+[2024-01-27 18:34:35] Importing Era.members#61.0-1674729376000-java.trap.gz (363 of 632)
+[2024-01-27 18:34:35] Importing IsoChronology.members#61.0-1674729376000-java.trap.gz (364 of 632)
+[2024-01-27 18:34:35] Importing IsoEra.members#61.0-1674729376000-java.trap.gz (365 of 632)
+[2024-01-27 18:34:35] Importing DateTimeFormatter.members#61.0-1674729376000-java.trap.gz (366 of 632)
+[2024-01-27 18:34:35] Importing DateTimeFormatterBuilder$CompositePrinterParser.members#61.0-1674729376000-java.trap.gz (367 of 632)
+[2024-01-27 18:34:35] Importing DateTimeFormatterBuilder$DateTimePrinterParser.members#61.0-1674729376000-java.trap.gz (368 of 632)
+[2024-01-27 18:34:35] Importing DateTimeFormatterBuilder$DayPeriod.members#61.0-1674729376000-java.trap.gz (369 of 632)
+[2024-01-27 18:34:35] Importing DateTimeFormatterBuilder.members#61.0-1674729376000-java.trap.gz (370 of 632)
+[2024-01-27 18:34:35] Importing DateTimeParseContext.members#61.0-1674729376000-java.trap.gz (371 of 632)
+[2024-01-27 18:34:35] Importing DateTimePrintContext.members#61.0-1674729376000-java.trap.gz (372 of 632)
+[2024-01-27 18:34:35] Importing DecimalStyle.members#61.0-1674729376000-java.trap.gz (373 of 632)
+[2024-01-27 18:34:35] Importing FormatStyle.members#61.0-1674729376000-java.trap.gz (374 of 632)
+[2024-01-27 18:34:35] Importing Parsed.members#61.0-1674729376000-java.trap.gz (375 of 632)
+[2024-01-27 18:34:35] Importing ResolverStyle.members#61.0-1674729376000-java.trap.gz (376 of 632)
+[2024-01-27 18:34:35] Importing SignStyle.members#61.0-1674729376000-java.trap.gz (377 of 632)
+[2024-01-27 18:34:35] Importing TextStyle.members#61.0-1674729376000-java.trap.gz (378 of 632)
+[2024-01-27 18:34:35] Importing ChronoField.members#61.0-1674729376000-java.trap.gz (379 of 632)
+[2024-01-27 18:34:35] Importing ChronoUnit.members#61.0-1674729376000-java.trap.gz (380 of 632)
+[2024-01-27 18:34:35] Importing Temporal.members#61.0-1674729376000-java.trap.gz (381 of 632)
+[2024-01-27 18:34:35] Importing TemporalAccessor.members#61.0-1674729376000-java.trap.gz (382 of 632)
+[2024-01-27 18:34:35] Importing TemporalAdjuster.members#61.0-1674729376000-java.trap.gz (383 of 632)
+[2024-01-27 18:34:35] Importing TemporalAmount.members#61.0-1674729376000-java.trap.gz (384 of 632)
+[2024-01-27 18:34:35] Importing TemporalField.members#61.0-1674729376000-java.trap.gz (385 of 632)
+[2024-01-27 18:34:35] Importing TemporalQuery.members#61.0-1674729376000-java.trap.gz (386 of 632)
+[2024-01-27 18:34:35] Importing TemporalUnit.members#61.0-1674729376000-java.trap.gz (387 of 632)
+[2024-01-27 18:34:35] Importing ValueRange.members#61.0-1674729376000-java.trap.gz (388 of 632)
+[2024-01-27 18:34:35] Importing ZoneOffsetTransition.members#61.0-1674729376000-java.trap.gz (389 of 632)
+[2024-01-27 18:34:35] Importing ZoneOffsetTransitionRule$TimeDefinition.members#61.0-1674729376000-java.trap.gz (390 of 632)
+[2024-01-27 18:34:35] Importing ZoneOffsetTransitionRule.members#61.0-1674729376000-java.trap.gz (391 of 632)
+[2024-01-27 18:34:35] Importing ZoneRules.members#61.0-1674729376000-java.trap.gz (392 of 632)
+[2024-01-27 18:34:35] Importing AbstractCollection.members#61.0-1674729376000-java.trap.gz (393 of 632)
+[2024-01-27 18:34:35] Importing AbstractMap.members#61.0-1674729376000-java.trap.gz (394 of 632)
+[2024-01-27 18:34:35] Importing AbstractSet.members#61.0-1674729376000-java.trap.gz (395 of 632)
+[2024-01-27 18:34:35] Importing Collection.members#61.0-1674729376000-java.trap.gz (396 of 632)
+[2024-01-27 18:34:35] Importing Comparator.members#61.0-1674729376000-java.trap.gz (397 of 632)
+[2024-01-27 18:34:35] Importing Date.members#61.0-1674729376000-java.trap.gz (398 of 632)
+[2024-01-27 18:34:35] Importing Dictionary.members#61.0-1674729376000-java.trap.gz (399 of 632)
+[2024-01-27 18:34:35] Importing DoubleSummaryStatistics.members#61.0-1674729376000-java.trap.gz (400 of 632)
+[2024-01-27 18:34:35] Importing EnumSet.members#61.0-1674729376000-java.trap.gz (401 of 632)
+[2024-01-27 18:34:35] Importing Enumeration.members#61.0-1674729376000-java.trap.gz (402 of 632)
+[2024-01-27 18:34:35] Importing Hashtable.members#61.0-1674729376000-java.trap.gz (403 of 632)
+[2024-01-27 18:34:35] Importing IntSummaryStatistics.members#61.0-1674729376000-java.trap.gz (404 of 632)
+[2024-01-27 18:34:35] Importing InvalidPropertiesFormatException.members#61.0-1674729376000-java.trap.gz (405 of 632)
+[2024-01-27 18:34:35] Importing Iterator.members#61.0-1674729376000-java.trap.gz (406 of 632)
+[2024-01-27 18:34:35] Importing List.members#61.0-1674729376000-java.trap.gz (407 of 632)
+[2024-01-27 18:34:35] Importing ListIterator.members#61.0-1674729376000-java.trap.gz (408 of 632)
+[2024-01-27 18:34:35] Importing Locale$Category.members#61.0-1674729376000-java.trap.gz (409 of 632)
+[2024-01-27 18:34:35] Importing Locale$FilteringMode.members#61.0-1674729376000-java.trap.gz (410 of 632)
+[2024-01-27 18:34:35] Importing Locale$IsoCountryCode.members#61.0-1674729376000-java.trap.gz (411 of 632)
+[2024-01-27 18:34:35] Importing Locale$LanguageRange.members#61.0-1674729376000-java.trap.gz (412 of 632)
+[2024-01-27 18:34:35] Importing Locale.members#61.0-1674729376000-java.trap.gz (413 of 632)
+[2024-01-27 18:34:35] Importing LongSummaryStatistics.members#61.0-1674729376000-java.trap.gz (414 of 632)
+[2024-01-27 18:34:35] Importing Map$Entry.members#61.0-1674729376000-java.trap.gz (415 of 632)
+[2024-01-27 18:34:35] Importing Map.members#61.0-1674729376000-java.trap.gz (416 of 632)
+[2024-01-27 18:34:35] Importing MissingResourceException.members#61.0-1674729376000-java.trap.gz (417 of 632)
+[2024-01-27 18:34:35] Importing Optional.members#61.0-1674729376000-java.trap.gz (418 of 632)
+[2024-01-27 18:34:35] Importing OptionalDouble.members#61.0-1674729376000-java.trap.gz (419 of 632)
+[2024-01-27 18:34:35] Importing OptionalInt.members#61.0-1674729376000-java.trap.gz (420 of 632)
+[2024-01-27 18:34:35] Importing OptionalLong.members#61.0-1674729376000-java.trap.gz (421 of 632)
+[2024-01-27 18:34:35] Importing PrimitiveIterator$OfDouble.members#61.0-1674729376000-java.trap.gz (422 of 632)
+[2024-01-27 18:34:35] Importing PrimitiveIterator$OfInt.members#61.0-1674729376000-java.trap.gz (423 of 632)
+[2024-01-27 18:34:35] Importing PrimitiveIterator$OfLong.members#61.0-1674729376000-java.trap.gz (424 of 632)
+[2024-01-27 18:34:35] Importing PrimitiveIterator.members#61.0-1674729376000-java.trap.gz (425 of 632)
+[2024-01-27 18:34:35] Importing Properties.members#61.0-1674729376000-java.trap.gz (426 of 632)
+[2024-01-27 18:34:35] Importing Random.members#61.0-1674729376000-java.trap.gz (427 of 632)
+[2024-01-27 18:34:35] Importing ResourceBundle$Control.members#61.0-1674729376000-java.trap.gz (428 of 632)
+[2024-01-27 18:34:35] Importing ResourceBundle.members#61.0-1674729376000-java.trap.gz (429 of 632)
+[2024-01-27 18:34:35] Importing Set.members#61.0-1674729376000-java.trap.gz (430 of 632)
+[2024-01-27 18:34:35] Importing SortedMap.members#61.0-1674729376000-java.trap.gz (431 of 632)
+[2024-01-27 18:34:35] Importing Spliterator$OfDouble.members#61.0-1674729376000-java.trap.gz (432 of 632)
+[2024-01-27 18:34:35] Importing Spliterator$OfInt.members#61.0-1674729376000-java.trap.gz (433 of 632)
+[2024-01-27 18:34:35] Importing Spliterator$OfLong.members#61.0-1674729376000-java.trap.gz (434 of 632)
+[2024-01-27 18:34:35] Importing Spliterator$OfPrimitive.members#61.0-1674729376000-java.trap.gz (435 of 632)
+[2024-01-27 18:34:35] Importing Spliterator.members#61.0-1674729376000-java.trap.gz (436 of 632)
+[2024-01-27 18:34:35] Importing WeakHashMap$Entry.members#61.0-1674729376000-java.trap.gz (437 of 632)
+[2024-01-27 18:34:35] Importing WeakHashMap.members#61.0-1674729376000-java.trap.gz (438 of 632)
+[2024-01-27 18:34:35] Importing Callable.members#61.0-1674729376000-java.trap.gz (439 of 632)
+[2024-01-27 18:34:35] Importing ConcurrentHashMap$CollectionView.members#61.0-1674729376000-java.trap.gz (440 of 632)
+[2024-01-27 18:34:35] Importing ConcurrentHashMap$KeySetView.members#61.0-1674729376000-java.trap.gz (441 of 632)
+[2024-01-27 18:34:35] Importing ConcurrentHashMap$Node.members#61.0-1674729376000-java.trap.gz (442 of 632)
+[2024-01-27 18:34:35] Importing ConcurrentHashMap.members#61.0-1674729376000-java.trap.gz (443 of 632)
+[2024-01-27 18:34:35] Importing ConcurrentMap.members#61.0-1674729376000-java.trap.gz (444 of 632)
+[2024-01-27 18:34:35] Importing ExecutionException.members#61.0-1674729376000-java.trap.gz (445 of 632)
+[2024-01-27 18:34:35] Importing Executor.members#61.0-1674729376000-java.trap.gz (446 of 632)
+[2024-01-27 18:34:35] Importing ExecutorService.members#61.0-1674729376000-java.trap.gz (447 of 632)
+[2024-01-27 18:34:35] Importing Future.members#61.0-1674729376000-java.trap.gz (448 of 632)
+[2024-01-27 18:34:35] Importing ThreadFactory.members#61.0-1674729376000-java.trap.gz (449 of 632)
+[2024-01-27 18:34:35] Importing TimeUnit.members#61.0-1674729376000-java.trap.gz (450 of 632)
+[2024-01-27 18:34:35] Importing TimeoutException.members#61.0-1674729376000-java.trap.gz (451 of 632)
+[2024-01-27 18:34:35] Importing BiConsumer.members#61.0-1674729376000-java.trap.gz (452 of 632)
+[2024-01-27 18:34:35] Importing BiFunction.members#61.0-1674729376000-java.trap.gz (453 of 632)
+[2024-01-27 18:34:35] Importing BinaryOperator.members#61.0-1674729376000-java.trap.gz (454 of 632)
+[2024-01-27 18:34:35] Importing BooleanSupplier.members#61.0-1674729376000-java.trap.gz (455 of 632)
+[2024-01-27 18:34:35] Importing Consumer.members#61.0-1674729376000-java.trap.gz (456 of 632)
+[2024-01-27 18:34:35] Importing DoubleBinaryOperator.members#61.0-1674729376000-java.trap.gz (457 of 632)
+[2024-01-27 18:34:35] Importing DoubleConsumer.members#61.0-1674729376000-java.trap.gz (458 of 632)
+[2024-01-27 18:34:35] Importing DoubleFunction.members#61.0-1674729376000-java.trap.gz (459 of 632)
+[2024-01-27 18:34:35] Importing DoublePredicate.members#61.0-1674729376000-java.trap.gz (460 of 632)
+[2024-01-27 18:34:35] Importing DoubleSupplier.members#61.0-1674729376000-java.trap.gz (461 of 632)
+[2024-01-27 18:34:35] Importing DoubleToIntFunction.members#61.0-1674729376000-java.trap.gz (462 of 632)
+[2024-01-27 18:34:35] Importing DoubleToLongFunction.members#61.0-1674729376000-java.trap.gz (463 of 632)
+[2024-01-27 18:34:35] Importing DoubleUnaryOperator.members#61.0-1674729376000-java.trap.gz (464 of 632)
+[2024-01-27 18:34:35] Importing Function.members#61.0-1674729376000-java.trap.gz (465 of 632)
+[2024-01-27 18:34:35] Importing IntBinaryOperator.members#61.0-1674729376000-java.trap.gz (466 of 632)
+[2024-01-27 18:34:35] Importing IntConsumer.members#61.0-1674729376000-java.trap.gz (467 of 632)
+[2024-01-27 18:34:35] Importing IntFunction.members#61.0-1674729376000-java.trap.gz (468 of 632)
+[2024-01-27 18:34:35] Importing IntPredicate.members#61.0-1674729376000-java.trap.gz (469 of 632)
+[2024-01-27 18:34:35] Importing IntSupplier.members#61.0-1674729376000-java.trap.gz (470 of 632)
+[2024-01-27 18:34:35] Importing IntToDoubleFunction.members#61.0-1674729376000-java.trap.gz (471 of 632)
+[2024-01-27 18:34:35] Importing IntToLongFunction.members#61.0-1674729376000-java.trap.gz (472 of 632)
+[2024-01-27 18:34:35] Importing IntUnaryOperator.members#61.0-1674729376000-java.trap.gz (473 of 632)
+[2024-01-27 18:34:35] Importing LongBinaryOperator.members#61.0-1674729376000-java.trap.gz (474 of 632)
+[2024-01-27 18:34:35] Importing LongConsumer.members#61.0-1674729376000-java.trap.gz (475 of 632)
+[2024-01-27 18:34:35] Importing LongFunction.members#61.0-1674729376000-java.trap.gz (476 of 632)
+[2024-01-27 18:34:35] Importing LongPredicate.members#61.0-1674729376000-java.trap.gz (477 of 632)
+[2024-01-27 18:34:35] Importing LongSupplier.members#61.0-1674729376000-java.trap.gz (478 of 632)
+[2024-01-27 18:34:35] Importing LongToDoubleFunction.members#61.0-1674729376000-java.trap.gz (479 of 632)
+[2024-01-27 18:34:35] Importing LongToIntFunction.members#61.0-1674729376000-java.trap.gz (480 of 632)
+[2024-01-27 18:34:35] Importing LongUnaryOperator.members#61.0-1674729376000-java.trap.gz (481 of 632)
+[2024-01-27 18:34:35] Importing ObjDoubleConsumer.members#61.0-1674729376000-java.trap.gz (482 of 632)
+[2024-01-27 18:34:35] Importing ObjIntConsumer.members#61.0-1674729376000-java.trap.gz (483 of 632)
+[2024-01-27 18:34:35] Importing ObjLongConsumer.members#61.0-1674729376000-java.trap.gz (484 of 632)
+[2024-01-27 18:34:35] Importing Predicate.members#61.0-1674729376000-java.trap.gz (485 of 632)
+[2024-01-27 18:34:35] Importing Supplier.members#61.0-1674729376000-java.trap.gz (486 of 632)
+[2024-01-27 18:34:35] Importing ToDoubleBiFunction.members#61.0-1674729376000-java.trap.gz (487 of 632)
+[2024-01-27 18:34:35] Importing ToDoubleFunction.members#61.0-1674729376000-java.trap.gz (488 of 632)
+[2024-01-27 18:34:35] Importing ToIntBiFunction.members#61.0-1674729376000-java.trap.gz (489 of 632)
+[2024-01-27 18:34:35] Importing ToIntFunction.members#61.0-1674729376000-java.trap.gz (490 of 632)
+[2024-01-27 18:34:35] Importing ToLongBiFunction.members#61.0-1674729376000-java.trap.gz (491 of 632)
+[2024-01-27 18:34:35] Importing ToLongFunction.members#61.0-1674729376000-java.trap.gz (492 of 632)
+[2024-01-27 18:34:35] Importing UnaryOperator.members#61.0-1674729376000-java.trap.gz (493 of 632)
+[2024-01-27 18:34:35] Importing RandomGenerator.members#61.0-1674729376000-java.trap.gz (494 of 632)
+[2024-01-27 18:34:35] Importing BaseStream.members#61.0-1674729376000-java.trap.gz (495 of 632)
+[2024-01-27 18:34:35] Importing Collector$Characteristics.members#61.0-1674729376000-java.trap.gz (496 of 632)
+[2024-01-27 18:34:35] Importing Collector.members#61.0-1674729376000-java.trap.gz (497 of 632)
+[2024-01-27 18:34:35] Importing DoubleStream$Builder.members#61.0-1674729376000-java.trap.gz (498 of 632)
+[2024-01-27 18:34:35] Importing DoubleStream$DoubleMapMultiConsumer.members#61.0-1674729376000-java.trap.gz (499 of 632)
+[2024-01-27 18:34:35] Importing DoubleStream.members#61.0-1674729376000-java.trap.gz (500 of 632)
+[2024-01-27 18:34:35] Importing IntStream$Builder.members#61.0-1674729376000-java.trap.gz (501 of 632)
+[2024-01-27 18:34:35] Importing IntStream$IntMapMultiConsumer.members#61.0-1674729376000-java.trap.gz (502 of 632)
+[2024-01-27 18:34:35] Importing IntStream.members#61.0-1674729376000-java.trap.gz (503 of 632)
+[2024-01-27 18:34:35] Importing LongStream$Builder.members#61.0-1674729376000-java.trap.gz (504 of 632)
+[2024-01-27 18:34:35] Importing LongStream$LongMapMultiConsumer.members#61.0-1674729376000-java.trap.gz (505 of 632)
+[2024-01-27 18:34:35] Importing LongStream.members#61.0-1674729376000-java.trap.gz (506 of 632)
+[2024-01-27 18:34:35] Importing Stream$Builder.members#61.0-1674729376000-java.trap.gz (507 of 632)
+[2024-01-27 18:34:35] Importing Stream.members#61.0-1674729376000-java.trap.gz (508 of 632)
+[2024-01-27 18:34:35] Importing Subject.members#61.0-1674729376000-java.trap.gz (509 of 632)
+[2024-01-27 18:34:35] Importing ValueBased.members#61.0-1674729376000-java.trap.gz (510 of 632)
+[2024-01-27 18:34:35] Importing MemorySegmentProxy.members#61.0-1674729376000-java.trap.gz (511 of 632)
+[2024-01-27 18:34:35] Importing UnmapperProxy.members#61.0-1674729376000-java.trap.gz (512 of 632)
+[2024-01-27 18:34:35] Importing NativeLibrary.members#61.0-1674729376000-java.trap.gz (513 of 632)
+[2024-01-27 18:34:35] Importing ScopedMemoryAccess$Scope$Handle.members#61.0-1674729376000-java.trap.gz (514 of 632)
+[2024-01-27 18:34:35] Importing ScopedMemoryAccess$Scope$ScopedAccessError.members#61.0-1674729376000-java.trap.gz (515 of 632)
+[2024-01-27 18:34:35] Importing ScopedMemoryAccess$Scope.members#61.0-1674729376000-java.trap.gz (516 of 632)
+[2024-01-27 18:34:35] Importing ScopedMemoryAccess$Scoped.members#61.0-1674729376000-java.trap.gz (517 of 632)
+[2024-01-27 18:34:35] Importing ScopedMemoryAccess.members#61.0-1674729376000-java.trap.gz (518 of 632)
+[2024-01-27 18:34:35] Importing Unsafe.members#61.0-1674729376000-java.trap.gz (519 of 632)
+[2024-01-27 18:34:35] Importing ServicesCatalog$ServiceProvider.members#61.0-1674729376000-java.trap.gz (520 of 632)
+[2024-01-27 18:34:35] Importing ServicesCatalog.members#61.0-1674729376000-java.trap.gz (521 of 632)
+[2024-01-27 18:34:35] Importing CleanerImpl.members#61.0-1674729376000-java.trap.gz (522 of 632)
+[2024-01-27 18:34:35] Importing PhantomCleanable.members#61.0-1674729376000-java.trap.gz (523 of 632)
+[2024-01-27 18:34:35] Importing CallerSensitive.members#61.0-1674729376000-java.trap.gz (524 of 632)
+[2024-01-27 18:34:35] Importing ConstantPool$Tag.members#61.0-1674729376000-java.trap.gz (525 of 632)
+[2024-01-27 18:34:35] Importing ConstantPool.members#61.0-1674729376000-java.trap.gz (526 of 632)
+[2024-01-27 18:34:35] Importing ConstructorAccessor.members#61.0-1674729376000-java.trap.gz (527 of 632)
+[2024-01-27 18:34:35] Importing FieldAccessor.members#61.0-1674729376000-java.trap.gz (528 of 632)
+[2024-01-27 18:34:35] Importing MethodAccessor.members#61.0-1674729376000-java.trap.gz (529 of 632)
+[2024-01-27 18:34:35] Importing ReflectionFactory.members#61.0-1674729376000-java.trap.gz (530 of 632)
+[2024-01-27 18:34:35] Importing RandomSupport$RandomGeneratorProperties.members#61.0-1674729376000-java.trap.gz (531 of 632)
+[2024-01-27 18:34:35] Importing RandomSupport.members#61.0-1674729376000-java.trap.gz (532 of 632)
+[2024-01-27 18:34:35] Importing Contended.members#61.0-1674729376000-java.trap.gz (533 of 632)
+[2024-01-27 18:34:35] Importing DontInline.members#61.0-1674729376000-java.trap.gz (534 of 632)
+[2024-01-27 18:34:35] Importing ForceInline.members#61.0-1674729376000-java.trap.gz (535 of 632)
+[2024-01-27 18:34:35] Importing Hidden.members#61.0-1674729376000-java.trap.gz (536 of 632)
+[2024-01-27 18:34:35] Importing IntrinsicCandidate.members#61.0-1674729376000-java.trap.gz (537 of 632)
+[2024-01-27 18:34:35] Importing Stable.members#61.0-1674729376000-java.trap.gz (538 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$BroadcastOperation.members#61.0-1674729376000-java.trap.gz (539 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$IndexOperation.members#61.0-1674729376000-java.trap.gz (540 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$LoadOperation.members#61.0-1674729376000-java.trap.gz (541 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$LoadVectorOperationWithMap.members#61.0-1674729376000-java.trap.gz (542 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$ShuffleIotaOperation.members#61.0-1674729376000-java.trap.gz (543 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$ShuffleToVectorOperation.members#61.0-1674729376000-java.trap.gz (544 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$StoreVectorOperation.members#61.0-1674729376000-java.trap.gz (545 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$StoreVectorOperationWithMap.members#61.0-1674729376000-java.trap.gz (546 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$TernaryOperation.members#61.0-1674729376000-java.trap.gz (547 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VecExtractOp.members#61.0-1674729376000-java.trap.gz (548 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VecInsertOp.members#61.0-1674729376000-java.trap.gz (549 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$Vector.members#61.0-1674729376000-java.trap.gz (550 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorBlendOp.members#61.0-1674729376000-java.trap.gz (551 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorBroadcastIntOp.members#61.0-1674729376000-java.trap.gz (552 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorCompareOp.members#61.0-1674729376000-java.trap.gz (553 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorConvertOp.members#61.0-1674729376000-java.trap.gz (554 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorMask.members#61.0-1674729376000-java.trap.gz (555 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorMaskOp.members#61.0-1674729376000-java.trap.gz (556 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorPayload.members#61.0-1674729376000-java.trap.gz (557 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorRearrangeOp.members#61.0-1674729376000-java.trap.gz (558 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorShuffle.members#61.0-1674729376000-java.trap.gz (559 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport$VectorSpecies.members#61.0-1674729376000-java.trap.gz (560 of 632)
+[2024-01-27 18:34:35] Importing VectorSupport.members#61.0-1674729376000-java.trap.gz (561 of 632)
+[2024-01-27 18:34:35] Importing API$Status.members#50.0-1624812792000-java.trap.gz (562 of 632)
+[2024-01-27 18:34:35] Importing API.members#50.0-1624812792000-java.trap.gz (563 of 632)
+[2024-01-27 18:34:35] Importing Assertions$TimeoutFailureFactory.members#52.0-318229200000-java.trap.gz (564 of 632)
+[2024-01-27 18:34:35] Importing Assertions.members#52.0-318229200000-java.trap.gz (565 of 632)
+[2024-01-27 18:34:35] Importing Test.members#52.0-318229200000-java.trap.gz (566 of 632)
+[2024-01-27 18:34:35] Importing Executable.members#52.0-318229200000-java.trap.gz (567 of 632)
+[2024-01-27 18:34:35] Importing ThrowingSupplier.members#52.0-318229200000-java.trap.gz (568 of 632)
+[2024-01-27 18:34:35] Importing Testable.members#52.0-318229200000-java.trap.gz (569 of 632)
+[2024-01-27 18:34:35] Importing MultipleFailuresError.members#50.0-1688660708000-java.trap.gz (570 of 632)
+[2024-01-27 18:34:35] Importing Empty.members#61.0-1674729376000-java.trap.gz (571 of 632)
+[2024-01-27 18:34:35] Importing Wrapper.members#61.0-1674729376000-java.trap.gz (572 of 632)
+[2024-01-27 18:34:35] Importing Interruptible.members#61.0-1674729376000-java.trap.gz (573 of 632)
+[2024-01-27 18:34:35] Importing AnnotationType.members#61.0-1674729376000-java.trap.gz (574 of 632)
+[2024-01-27 18:34:35] Importing GenericsFactory.members#61.0-1674729376000-java.trap.gz (575 of 632)
+[2024-01-27 18:34:35] Importing AbstractRepository.members#61.0-1674729376000-java.trap.gz (576 of 632)
+[2024-01-27 18:34:35] Importing ConstructorRepository.members#61.0-1674729376000-java.trap.gz (577 of 632)
+[2024-01-27 18:34:35] Importing GenericDeclRepository.members#61.0-1674729376000-java.trap.gz (578 of 632)
+[2024-01-27 18:34:35] Importing MethodRepository.members#61.0-1674729376000-java.trap.gz (579 of 632)
+[2024-01-27 18:34:35] Importing ArrayTypeSignature.members#61.0-1674729376000-java.trap.gz (580 of 632)
+[2024-01-27 18:34:35] Importing BaseType.members#61.0-1674729376000-java.trap.gz (581 of 632)
+[2024-01-27 18:34:35] Importing BooleanSignature.members#61.0-1674729376000-java.trap.gz (582 of 632)
+[2024-01-27 18:34:35] Importing BottomSignature.members#61.0-1674729376000-java.trap.gz (583 of 632)
+[2024-01-27 18:34:35] Importing ByteSignature.members#61.0-1674729376000-java.trap.gz (584 of 632)
+[2024-01-27 18:34:35] Importing CharSignature.members#61.0-1674729376000-java.trap.gz (585 of 632)
+[2024-01-27 18:34:35] Importing ClassSignature.members#61.0-1674729376000-java.trap.gz (586 of 632)
+[2024-01-27 18:34:35] Importing ClassTypeSignature.members#61.0-1674729376000-java.trap.gz (587 of 632)
+[2024-01-27 18:34:35] Importing DoubleSignature.members#61.0-1674729376000-java.trap.gz (588 of 632)
+[2024-01-27 18:34:35] Importing FieldTypeSignature.members#61.0-1674729376000-java.trap.gz (589 of 632)
+[2024-01-27 18:34:35] Importing FloatSignature.members#61.0-1674729376000-java.trap.gz (590 of 632)
+[2024-01-27 18:34:35] Importing FormalTypeParameter.members#61.0-1674729376000-java.trap.gz (591 of 632)
+[2024-01-27 18:34:35] Importing IntSignature.members#61.0-1674729376000-java.trap.gz (592 of 632)
+[2024-01-27 18:34:35] Importing LongSignature.members#61.0-1674729376000-java.trap.gz (593 of 632)
+[2024-01-27 18:34:35] Importing MethodTypeSignature.members#61.0-1674729376000-java.trap.gz (594 of 632)
+[2024-01-27 18:34:35] Importing ReturnType.members#61.0-1674729376000-java.trap.gz (595 of 632)
+[2024-01-27 18:34:35] Importing ShortSignature.members#61.0-1674729376000-java.trap.gz (596 of 632)
+[2024-01-27 18:34:35] Importing Signature.members#61.0-1674729376000-java.trap.gz (597 of 632)
+[2024-01-27 18:34:35] Importing SimpleClassTypeSignature.members#61.0-1674729376000-java.trap.gz (598 of 632)
+[2024-01-27 18:34:35] Importing Tree.members#61.0-1674729376000-java.trap.gz (599 of 632)
+[2024-01-27 18:34:35] Importing TypeArgument.members#61.0-1674729376000-java.trap.gz (600 of 632)
+[2024-01-27 18:34:35] Importing TypeSignature.members#61.0-1674729376000-java.trap.gz (601 of 632)
+[2024-01-27 18:34:35] Importing TypeTree.members#61.0-1674729376000-java.trap.gz (602 of 632)
+[2024-01-27 18:34:35] Importing TypeVariableSignature.members#61.0-1674729376000-java.trap.gz (603 of 632)
+[2024-01-27 18:34:35] Importing VoidDescriptor.members#61.0-1674729376000-java.trap.gz (604 of 632)
+[2024-01-27 18:34:35] Importing Wildcard.members#61.0-1674729376000-java.trap.gz (605 of 632)
+[2024-01-27 18:34:35] Importing Reifier.members#61.0-1674729376000-java.trap.gz (606 of 632)
+[2024-01-27 18:34:35] Importing TypeTreeVisitor.members#61.0-1674729376000-java.trap.gz (607 of 632)
+[2024-01-27 18:34:35] Importing Visitor.members#61.0-1674729376000-java.trap.gz (608 of 632)
+[2024-01-27 18:34:35] Importing Debug.members#61.0-1674729376000-java.trap.gz (609 of 632)
+[2024-01-27 18:34:35] Importing BaseLocale.members#61.0-1674729376000-java.trap.gz (610 of 632)
+[2024-01-27 18:34:35] Importing Extension.members#61.0-1674729376000-java.trap.gz (611 of 632)
+[2024-01-27 18:34:35] Importing InternalLocaleBuilder$CaseInsensitiveChar.members#61.0-1674729376000-java.trap.gz (612 of 632)
+[2024-01-27 18:34:35] Importing InternalLocaleBuilder$CaseInsensitiveString.members#61.0-1674729376000-java.trap.gz (613 of 632)
+[2024-01-27 18:34:35] Importing InternalLocaleBuilder.members#61.0-1674729376000-java.trap.gz (614 of 632)
+[2024-01-27 18:34:35] Importing LanguageTag.members#61.0-1674729376000-java.trap.gz (615 of 632)
+[2024-01-27 18:34:35] Importing LocaleExtensions.members#61.0-1674729376000-java.trap.gz (616 of 632)
+[2024-01-27 18:34:35] Importing LocaleSyntaxException.members#61.0-1674729376000-java.trap.gz (617 of 632)
+[2024-01-27 18:34:35] Importing ParseStatus.members#61.0-1674729376000-java.trap.gz (618 of 632)
+[2024-01-27 18:34:35] Importing diagnostic-1.trap.gz (619 of 632)
+[2024-01-27 18:34:35] Importing diagnostic.trap.gz (620 of 632)
+[2024-01-27 18:34:35] Importing pom.xml.trap.gz (621 of 632)
+[2024-01-27 18:34:35] Importing App.java.trap.gz (622 of 632)
+[2024-01-27 18:34:36] Importing AppTest.java.trap.gz (623 of 632)
+[2024-01-27 18:34:36] Importing pom.properties.trap.gz (624 of 632)
+[2024-01-27 18:34:36] Importing TEST-com.mycompany.app.AppTest.xml.trap.gz (625 of 632)
+[2024-01-27 18:34:36] Importing javac-1.properties.trap.gz (626 of 632)
+[2024-01-27 18:34:36] Importing javac.properties.trap.gz (627 of 632)
+[2024-01-27 18:34:36] Importing apiguardian-api-1.1.2.jar.trap.gz (628 of 632)
+[2024-01-27 18:34:36] Importing junit-jupiter-api-5.10.1.jar.trap.gz (629 of 632)
+[2024-01-27 18:34:36] Importing junit-platform-commons-1.10.1.jar.trap.gz (630 of 632)
+[2024-01-27 18:34:36] Importing opentest4j-1.3.0.jar.trap.gz (631 of 632)
+[2024-01-27 18:34:36] Importing sourceLocationPrefix.trap.gz (632 of 632)
+[2024-01-27 18:34:36] [PROGRESS] dataset import> Merging relations
+[2024-01-27 18:34:36] Merging 1 fragment for 'packages'.
+[2024-01-27 18:34:36] Merged 456 bytes for 'packages'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'classes_or_interfaces'.
+[2024-01-27 18:34:36] Merged 38784 bytes (37.88 KiB) for 'classes_or_interfaces'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'files'.
+[2024-01-27 18:34:36] Merged 5040 bytes (4.92 KiB) for 'files'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'folders'.
+[2024-01-27 18:34:36] Merged 1048 bytes (1.02 KiB) for 'folders'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'containerparent'.
+[2024-01-27 18:34:36] Merged 6072 bytes (5.93 KiB) for 'containerparent'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'cupackage'.
+[2024-01-27 18:34:36] Merged 4960 bytes (4.84 KiB) for 'cupackage'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'locations_default'.
+[2024-01-27 18:34:36] Merged 27240 bytes (26.60 KiB) for 'locations_default'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'hasLocation'.
+[2024-01-27 18:34:36] Merged 138528 bytes (135.28 KiB) for 'hasLocation'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'extendsReftype'.
+[2024-01-27 18:34:36] Merged 21024 bytes (20.53 KiB) for 'extendsReftype'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'modifiers'.
+[2024-01-27 18:34:36] Merged 88 bytes for 'modifiers'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'hasModifier'.
+[2024-01-27 18:34:36] Merged 173936 bytes (169.86 KiB) for 'hasModifier'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'methods'.
+[2024-01-27 18:34:36] Merged 220872 bytes (215.70 KiB) for 'methods'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'arrays'.
+[2024-01-27 18:34:36] Merged 3320 bytes (3.24 KiB) for 'arrays'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'fields'.
+[2024-01-27 18:34:36] Merged 25700 bytes (25.10 KiB) for 'fields'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'implInterface'.
+[2024-01-27 18:34:36] Merged 14592 bytes (14.25 KiB) for 'implInterface'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'primitives'.
+[2024-01-27 18:34:36] Merged 72 bytes for 'primitives'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'params'.
+[2024-01-27 18:34:36] Merged 216960 bytes (211.88 KiB) for 'params'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'constrs'.
+[2024-01-27 18:34:36] Merged 15456 bytes (15.09 KiB) for 'constrs'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'exprs'.
+[2024-01-27 18:34:36] Merged 50640 bytes (49.45 KiB) for 'exprs'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isDefConstr'.
+[2024-01-27 18:34:36] Merged 4 bytes for 'isDefConstr'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isInterface'.
+[2024-01-27 18:34:36] Merged 5832 bytes (5.70 KiB) for 'isInterface'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'exceptions'.
+[2024-01-27 18:34:36] Merged 10212 bytes (9.97 KiB) for 'exceptions'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isVarargsParam'.
+[2024-01-27 18:34:36] Merged 600 bytes for 'isVarargsParam'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'typeArgs'.
+[2024-01-27 18:34:36] Merged 25056 bytes (24.47 KiB) for 'typeArgs'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isParameterized'.
+[2024-01-27 18:34:36] Merged 6824 bytes (6.66 KiB) for 'isParameterized'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'erasure'.
+[2024-01-27 18:34:36] Merged 14448 bytes (14.11 KiB) for 'erasure'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'namestrings'.
+[2024-01-27 18:34:36] Merged 6180 bytes (6.04 KiB) for 'namestrings'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'annotValue'.
+[2024-01-27 18:34:36] Merged 8376 bytes (8.18 KiB) for 'annotValue'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'enclInReftype'.
+[2024-01-27 18:34:36] Merged 2624 bytes (2.56 KiB) for 'enclInReftype'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isRaw'.
+[2024-01-27 18:34:36] Merged 392 bytes for 'isRaw'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'wildcards'.
+[2024-01-27 18:34:36] Merged 2508 bytes (2.45 KiB) for 'wildcards'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'typeBounds'.
+[2024-01-27 18:34:36] Merged 5408 bytes (5.28 KiB) for 'typeBounds'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'typeVars'.
+[2024-01-27 18:34:36] Merged 10260 bytes (10.02 KiB) for 'typeVars'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isEnumType'.
+[2024-01-27 18:34:36] Merged 160 bytes for 'isEnumType'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isEnumConst'.
+[2024-01-27 18:34:36] Merged 1316 bytes (1.29 KiB) for 'isEnumConst'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isAnnotType'.
+[2024-01-27 18:34:36] Merged 84 bytes for 'isAnnotType'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'variableBinding'.
+[2024-01-27 18:34:36] Merged 1688 bytes (1.65 KiB) for 'variableBinding'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'isAnnotElem'.
+[2024-01-27 18:34:36] Merged 64 bytes for 'isAnnotElem'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilations'.
+[2024-01-27 18:34:36] Merged 32 bytes for 'compilations'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilation_args'.
+[2024-01-27 18:34:36] Merged 96 bytes for 'compilation_args'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilation_expanded_args'.
+[2024-01-27 18:34:36] Merged 504 bytes for 'compilation_expanded_args'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'diagnostic_for'.
+[2024-01-27 18:34:36] Merged 32 bytes for 'diagnostic_for'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'diagnostics'.
+[2024-01-27 18:34:36] Merged 56 bytes for 'diagnostics'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilation_info'.
+[2024-01-27 18:34:36] Merged 72 bytes for 'compilation_info'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilation_time'.
+[2024-01-27 18:34:36] Merged 320 bytes for 'compilation_time'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilation_compiling_files'.
+[2024-01-27 18:34:36] Merged 24 bytes for 'compilation_compiling_files'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilation_compiling_files_completed'.
+[2024-01-27 18:34:36] Merged 24 bytes for 'compilation_compiling_files_completed'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'compilation_finished'.
+[2024-01-27 18:34:36] Merged 48 bytes for 'compilation_finished'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmllocations'.
+[2024-01-27 18:34:36] Merged 2040 bytes (1.99 KiB) for 'xmllocations'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmlNs'.
+[2024-01-27 18:34:36] Merged 32 bytes for 'xmlNs'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmlElements'.
+[2024-01-27 18:34:36] Merged 2100 bytes (2.05 KiB) for 'xmlElements'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmlHasNs'.
+[2024-01-27 18:34:36] Merged 600 bytes for 'xmlHasNs'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmlAttrs'.
+[2024-01-27 18:34:36] Merged 2808 bytes (2.74 KiB) for 'xmlAttrs'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmlChars'.
+[2024-01-27 18:34:36] Merged 672 bytes for 'xmlChars'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'numlines'.
+[2024-01-27 18:34:36] Merged 1888 bytes (1.84 KiB) for 'numlines'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmlComments'.
+[2024-01-27 18:34:36] Merged 16 bytes for 'xmlComments'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'xmlEncoding'.
+[2024-01-27 18:34:36] Merged 16 bytes for 'xmlEncoding'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'hasJavadoc'.
+[2024-01-27 18:34:36] Merged 16 bytes for 'hasJavadoc'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'stmts'.
+[2024-01-27 18:34:36] Merged 340 bytes for 'stmts'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'callableEnclosingExpr'.
+[2024-01-27 18:34:36] Merged 280 bytes for 'callableEnclosingExpr'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'statementEnclosingExpr'.
+[2024-01-27 18:34:36] Merged 232 bytes for 'statementEnclosingExpr'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'fielddecls'.
+[2024-01-27 18:34:36] Merged 8 bytes for 'fielddecls'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'fieldDeclaredIn'.
+[2024-01-27 18:34:36] Merged 12 bytes for 'fieldDeclaredIn'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'callableBinding'.
+[2024-01-27 18:34:36] Merged 88 bytes for 'callableBinding'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'paramName'.
+[2024-01-27 18:34:36] Merged 8 bytes for 'paramName'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'javadoc'.
+[2024-01-27 18:34:36] Merged 8 bytes for 'javadoc'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'javadocText'.
+[2024-01-27 18:34:36] Merged 32 bytes for 'javadocText'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'imports'.
+[2024-01-27 18:34:36] Merged 32 bytes for 'imports'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'localvars'.
+[2024-01-27 18:34:36] Merged 48 bytes for 'localvars'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'configs'.
+[2024-01-27 18:34:36] Merged 428 bytes for 'configs'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'configLocations'.
+[2024-01-27 18:34:36] Merged 2392 bytes (2.34 KiB) for 'configLocations'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'configNames'.
+[2024-01-27 18:34:36] Merged 1284 bytes (1.25 KiB) for 'configNames'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'configValues'.
+[2024-01-27 18:34:36] Merged 1020 bytes for 'configValues'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'jarManifestMain'.
+[2024-01-27 18:34:36] Merged 1008 bytes for 'jarManifestMain'.
+[2024-01-27 18:34:36] Merging 1 fragment for 'sourceLocationPrefix'.
+[2024-01-27 18:34:36] Merged 4 bytes for 'sourceLocationPrefix'.
+[2024-01-27 18:34:36] Saving string and id pools to disk.
+[2024-01-27 18:34:36] Finished importing TRAP files.
+[2024-01-27 18:34:36] Read 7.66 MiB of uncompressed TRAP data.
+[2024-01-27 18:34:36] Relation data size: 1.04 MiB (merge rate: 5.46 MiB/s)
+[2024-01-27 18:34:36] String pool size: 2.41 MiB
+[2024-01-27 18:34:36] ID pool size: 2.25 MiB
+[2024-01-27 18:34:36] [PROGRESS] dataset import> Finished writing database (relations: 1.04 MiB; string pool: 2.41 MiB).
+[2024-01-27 18:34:36] Pausing evaluation to close the cache at sequence stamp o+3
+[2024-01-27 18:34:36] The disk cache is freshly trimmed; leave it be.
+[2024-01-27 18:34:36] Unpausing evaluation
+[2024-01-27 18:34:36] Plumbing command codeql dataset import completed.
+[2024-01-27 18:34:36] [PROGRESS] database finalize> TRAP import complete (1.4s).
+[2024-01-27 18:34:36] Running plumbing command: codeql database cleanup --mode=trim -- /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo
+[2024-01-27 18:34:36] [PROGRESS] database cleanup> Cleaning up existing TRAP files after import...
+[2024-01-27 18:34:36] [PROGRESS] database cleanup> TRAP files cleaned up (98ms).
+[2024-01-27 18:34:36] [PROGRESS] database cleanup> Cleaning up scratch directory...
+[2024-01-27 18:34:36] [PROGRESS] database cleanup> Scratch directory cleaned up (0ms).
+[2024-01-27 18:34:36] Running plumbing command: codeql dataset cleanup --mode=trim -- /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java
+[2024-01-27 18:34:36] [PROGRESS] dataset cleanup> Cleaning up dataset in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java.
+[2024-01-27 18:34:36] Trimming disk cache at /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java/default/cache in mode trim.
+[2024-01-27 18:34:36] Sequence stamp origin is -6224960342817770892
+[2024-01-27 18:34:36] Pausing evaluation to zealously trim disk at sequence stamp o+0
+[2024-01-27 18:34:36] Unpausing evaluation
+[2024-01-27 18:34:36] Trimming completed (1ms): Trimmed disposable data from cache.
+[2024-01-27 18:34:36] Pausing evaluation to close the cache at sequence stamp o+1
+[2024-01-27 18:34:36] The disk cache is freshly trimmed; leave it be.
+[2024-01-27 18:34:36] Unpausing evaluation
+[2024-01-27 18:34:36] [PROGRESS] dataset cleanup> Trimmed disposable data from cache.
+[2024-01-27 18:34:36] [PROGRESS] dataset cleanup> Finalizing dataset in /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java
+[2024-01-27 18:34:36] [DETAILS] dataset cleanup> Finished deleting ID pool from /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo/db-java (2ms).
+[2024-01-27 18:34:36] Plumbing command codeql dataset cleanup completed.
+[2024-01-27 18:34:36] Plumbing command codeql database cleanup completed with status 0.
+[2024-01-27 18:34:36] [PROGRESS] database finalize> Finished zipping source archive (5.77 KiB).
+[2024-01-27 18:34:36] Plumbing command codeql database finalize completed.
+[2024-01-27 18:34:36] [PROGRESS] database create> Successfully created database at /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app/yolo.
+[2024-01-27 18:34:36] Terminating normally.

@@ -1,0 +1,11 @@
+---
+sourceLocationPrefix: /home/nic-lovin/Documents/ctf/real/codeql/simple-java-maven-app
+baselineLinesOfCode: 29
+unicodeNewlines: false
+columnKind: utf16
+primaryLanguage: java
+creationMetadata:
+  sha: 64850e7aa23071984483648a2636de894a62b4b4
+  cliVersion: 2.16.1
+  creationTime: 2024-01-27T23:34:16.529848954Z
+finalised: true
