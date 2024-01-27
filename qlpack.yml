@@ -1,7 +1,6 @@
-name: my-repo/my-java-model-pack
-version: 1.2.3
-extensionTargets:
-  codeql/java-all: ~1.2.3
-  codeql/util: ~4.5.6
-dataExtensions:
-  - models/**/*.yml
+name: getting-started/codeql-extra-queries-java
+version: 0.0.0
+dependencies:
+  # This uses the latest version of the codeql/java-all library.
+  # You may want to change to a more precise semver string.
+  codeql/java-all: "*"
