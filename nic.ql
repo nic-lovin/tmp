@@ -1,0 +1,2 @@
+import java
+class Lol {}
