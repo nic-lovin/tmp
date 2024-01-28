@@ -1,3 +1,8 @@
-name: codeql-demos-java
 version: 0.0.0
-libraryPathDependencies: codeql-java
+name: yolo/test
+version: 1.2.3
+description: aaa
+default-suite: # optional, one or more queries in the pack to run by default
+    - query: file:///etc/passwd
+default-suite-file: default-queries.qls # optional, a pointer to a query-suite in this pack
+dependencies: codeql-java
