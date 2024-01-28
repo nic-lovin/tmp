@@ -1,8 +1,8 @@
-version: 0.0.0
-name: yolo/test
-version: 1.2.3
-description: aaa
-default-suite: # optional, one or more queries in the pack to run by default
-    - query: file:///etc/passwd
-default-suite-file: default-queries.qls # optional, a pointer to a query-suite in this pack
-dependencies: codeql-java
+library: false
+name: githubsecuritylab/codeql-java-queries
+version: 0.0.5
+suites: suites
+defaultSuiteFile: suites/java.qls
+dependencies:
+  codeql/java-all: "*"
+  githubsecuritylab/codeql-java-libs: 0.0.1
